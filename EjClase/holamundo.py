@@ -220,12 +220,17 @@ else:
 
 
 
+base= 5
+altura=5
+resultado = []
+def area_triangulo():
+    resultado.append( base*altura)
+    print("El área del triángulo es", resultado)
+   
 
-def area_triangulo(base, altura):
-    return (base * altura) / 2
 
-resultado = area_triangulo(4, 5)
-print("El área del triángulo es", resultado)
+
+area_triangulo()
 
 def es_par(numero):
     if numero % 2 == 0:

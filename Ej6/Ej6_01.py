@@ -21,4 +21,3 @@ if alimentos_perecederos:
         print(f"{producto['Nombre']}")
 else:
     print("No se han ingresado productos perecederos.")
-
