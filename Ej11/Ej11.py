@@ -6,7 +6,7 @@ tablerosinresolver = np.zeros((5,5))
 fila = np.random.randint(1,5)
 columna = np.random.randint(1,5)
 tablero[fila,columna] = 1
-
+print(tablero)
 def Juego():
     intentos = 0
 
@@ -14,6 +14,24 @@ def Juego():
         print("Tablero \n",tablerosinresolver)
         filaj = int(input("¿Que fila quieres atacar?"))
         columnaj = int(input("¿Que columna quieres atacar?"))
+        
+        #Usando Case
+        match tablero[filaj-1,columnaj-1]:
+            case -1:
+                print("Ya has probado esa posición")
+                
+            case 0:
+                print("Agua")
+                tablerosinresolver[filaj-1,columnaj-1] = -1
+                intentos = intentos + 1
+            case 1:
+                print(f"¡Has hundido el barco! \n Has necesitado {intentos} intentos")
+                print(tablero)
+                break
+        
+        
+        #Usando IF
+        """
         if tablero[filaj-1,columnaj-1] == 1:
             print(f"¡Has hundido el barco! \n Has necesitado {intentos} intentos")
             print(tablero)
@@ -24,6 +42,7 @@ def Juego():
             print("Agua")
             tablerosinresolver[filaj-1,columnaj-1] = -1
             intentos = intentos + 1
+            """
     
         
 Juego()
