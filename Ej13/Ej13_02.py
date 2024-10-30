@@ -15,9 +15,9 @@ with open('temperaturas.txt', 'r+') as archivo:
 promedio = np.mean(array1)
 maxima = np.max(array1)
 minima = np.min(array1)
-print(f.BLUE+ f"El promedio de temperatura es: {promedio}")
-print(f"La maxima de temperatura es: {maxima}")
-print(f"La minima de temperatura es: {minima}")
+print(f.BLUE+ f"El promedio de temperatura es: {promedio:.2f}°C")
+print(f"La maxima de temperatura es: {maxima}°C")
+print(f"La minima de temperatura es: {minima}°C")
     
 
     
