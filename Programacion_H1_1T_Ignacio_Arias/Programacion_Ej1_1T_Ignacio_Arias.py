@@ -1,10 +1,10 @@
 asteriscos = " * "
-
-print( "\n \n ***************** \n Inicialización de Programa \n Ignacio Arias \n *****************")
+from colorama import Fore
+print(Fore.RED + "\n \n ***************** \n Inicialización de Programa \n Ignacio Arias \n *****************"+ Fore.RESET)
 ####Incializamos un bucle#####
 while True:
     
-    print("MENU \n 1- Cuadrado \n 2- Rectangulo \n 3- Salir  \n Dime tu opcion:" )
+    print( Fore.BLUE + "MENU \n 1- Cuadrado \n 2- Rectangulo \n 3- Salir  \n Dime tu opcion:" + Fore.RESET)
     selecion = int(input(">  "))
     ####Comprobar la seleción del usuario####
     if selecion == 1:
