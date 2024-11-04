@@ -218,7 +218,7 @@ else:
 """
 
 
-
+"""
 
 base= 5
 altura=5
@@ -252,4 +252,27 @@ def saludo_personalizado(nombre, hora_del_dia):
 
 saludo_personalizado("Laura", "tarde")
 
+"""
+def calculadora():
+    try:
+        num1 = float(input("Ingresa el primer número: "))
+        num2 = float(input("Ingresa el segundo número: "))
+        operacion = input("Ingresa la operación (+, -, *, /): ")
 
+
+        if operacion == '+':
+            print(f"Resultado: {num1 + num2}")
+        elif operacion == '-':
+            print(f"Resultado: {num1 - num2}")
+        elif operacion == '*':
+            print(f"Resultado: {num1 * num2}")
+        elif operacion == '/':
+            print(f"Resultado: {num1 / num2}")
+        else:
+            print("Operación no válida.")
+    except ZeroDivisionError:
+        print("Error: No se puede dividir entre cero.")
+    except ValueError:
+        print("Error: Debes ingresar un número válido.")
+
+calculadora()
