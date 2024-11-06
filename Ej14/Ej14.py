@@ -1,8 +1,8 @@
 import numpy as np
 from colorama import Fore as fr
 
-tablero = np.zeros((20,20))
-tablerosinresolver = np.zeros((20,20))
+tablero = np.zeros((20,20), dtype=int)
+tablerosinresolver = np.zeros((20,20), dtype=int)
 barcoshundidos = 0
 
 posicionb1 = np.array([[0, 0], [0, 0]])
@@ -10,28 +10,56 @@ posicionb2 = np.array([[0, 0], [0, 0], [0, 0]])
 posicionb3 = np.array([[0, 0], [0, 0], [0, 0], [0, 0]])
 
 def cargar_partida():
-    global tablero, posicionb1, posicionb2, posicionb3
+    global tablero 
+    global posicionb1
+    global posicionb2
+    global posicionb3
+    
     tablero = np.zeros((20, 20), dtype=int)  # Reiniciar el tablero por si acaso
     try:
         with open("partida_comenzada.txt", "r") as archivo:
+            # Leer las primeras 20 filas del tablero
+            
             for i in range(20):
-                fila = list(map(int, archivo.readline().strip().split()))
-                if len(fila) != 20:
-                    raise ValueError(f"La fila {i+1} no tiene 20 elementos.")
-                tablero[i] = np.array(fila)  # Convertir la fila en un array de numpy
-                posicionb1 = np.array(list(map(int, archivo.readline().strip().split())))
-                posicionb2 = np.array(list(map(int, archivo.readline().strip().split())))
-                posicionb3 = np.array(list(map(int, archivo.readline().strip().split())))
+                fila = archivo.readline().strip()
+                if fila == "":  # Si hay una línea vacía, muestra un mensaje de error
+                    raise ValueError(f"La fila {i} está vacía.")
+                fila_lista = list(map(int, fila.split()))
+                if len(fila_lista) != 20:  # Si la fila no tiene 20 elementos
+                    raise ValueError(f"La fila {i} no tiene 20 elementos: {fila_lista}")
+                tablero[i] = np.array(fila_lista)
+            
+            # Leer las posiciones de los tres elementos
+            for i in range(21,22):  # Suponiendo que lees las líneas 21 y 22
+                fila = archivo.readline().strip().split()  # Ahora split() divide correctamente la línea
+                posicionb1 = np.array([list(map(int, fila))])  # Convierte cada elemento de la fila en entero
+            for i in range(23,25):  # Suponiendo que lees las líneas 21 y 22
+                fila = archivo.readline().strip().split()  # Ahora split() divide correctamente la línea
+                posicionb2 = np.array([list(map(int, fila))])  # Convierte cada elemento de la fila en entero
+           
+            
+            #posicionb3 = np.array(list(map(int, archivo.readline().strip().split())))
+
         print("Partida cargada.")
+    
     except FileNotFoundError:
         print("No hay partida guardada. Generando nueva partida.")
     except ValueError as e:
         print(f"Error al cargar la partida: {e}")
+    except Exception as e:
+        print(f"Ocurrió un error inesperado: {e}")
+
         
         
 def guardar_partida():
     with open("partida_comenzada.txt", "w") as archivo:
         for fila in tablero:
+            archivo.write(" ".join(map(str, fila)) + "\n")
+        for fila in posicionb1+1:
+            archivo.write(" ".join(map(str, fila)) + "\n")
+        for fila in posicionb2+1:
+            archivo.write(" ".join(map(str, fila)) + "\n")
+        for fila in posicionb3+1:
             archivo.write(" ".join(map(str, fila)) + "\n")
     print("Partida guardada.")
 
@@ -42,18 +70,20 @@ def JuegoPro():
         barco1vivo = True
         barco2vivo = True
         barco3vivo  = True
-        
-        if all(tablero[posicionb1[:, 0], posicionb1[:, 1]] == 0) and all(tablero[posicionb2[:, 0], posicionb2[:, 1]] == 0) and all(tablero[posicionb3[:, 0], posicionb3[:, 1]] == 0):
-            barco1()
-            barco2()
-            barco3()
         global posicionb1, posicionb2, posicionb3
+        """
+        if all(tablero[posicionb1[:, 0], posicionb1[:, 1]] == 0) and all(tablero[posicionb2[:, 0], posicionb2[:, 1]] == 0) and all(tablero[posicionb3[:, 0], posicionb3[:, 1]] == 0):
+            barco1()  # Colocar barco 1
+            barco2()  # Colocar barco 2
+            barco3()  # Colocar barco 3
+"""
+        
         while True:
             print(fr.RED + "Tablero \n",tablerosinresolver , fr.RESET)
             
-            print(posicionb1+1)
-            print(posicionb2+1)
-            print(posicionb3+1)
+            print(posicionb1)
+            print(posicionb2)
+            print(posicionb3)
             filaj = int(input("¿Qué fila quieres atacar? (o 111 para menú) "))
             if filaj == 111:
                 eleccion = int(input("Menú \n1. Guardar\n2. Salir\n"))
@@ -104,16 +134,6 @@ def JuegoPro():
                         break
            
             
-                    
-                    
-                
-                    
-                    
-                
-                
-                
-                
-                
 def barco1():
     print("Colocar barco 1 de 2 de longitud")
     fila = np.random.randint(1,20)
@@ -122,26 +142,26 @@ def barco1():
     global posicionb1
     
     direccion = np.random.randint(1,4)
-    match direccion:
-        case 1:
-            tablero[fila,columna-1] = 1
-            posicionb1 = np.array([[fila, columna], [fila, columna-1]])
-            
-        case 2:
-            tablero[fila,columna+1] = 1
-            posicionb1 = np.array([[fila, columna], [fila, columna+1]])
-            
-        case 3:
-            tablero[fila+1,columna] = 1
-            posicionb1 = np.array([[fila, columna], [fila + 1, columna]])
-            
-        case 4:
-            tablero[fila-1,columna] = 1
-            posicionb1 = np.array([[fila, columna], [fila - 1, columna]])
-            
-    
-    
-    
+    try:
+        match direccion:
+            case 1:
+                tablero[fila,columna-1] = 1
+                posicionb1 = np.array([[fila, columna], [fila, columna-1]])
+                
+            case 2:
+                tablero[fila,columna+1] = 1
+                posicionb1 = np.array([[fila, columna], [fila, columna+1]])
+                
+            case 3:
+                tablero[fila+1,columna] = 1
+                posicionb1 = np.array([[fila, columna], [fila + 1, columna]])
+                
+            case 4:
+                tablero[fila-1,columna] = 1
+                posicionb1 = np.array([[fila, columna], [fila - 1, columna]])
+    except ValueError:
+        barco1()
+  
 def barco2():
     print("Colocar barco 1 de 3 de longitud")
     global posicionb2
@@ -227,7 +247,7 @@ def barco3():
 
 
 cargar_partida()
-barco1()
-barco2()
-barco3()
+#barco1()
+#barco2()
+#barco3()
 JuegoPro()
