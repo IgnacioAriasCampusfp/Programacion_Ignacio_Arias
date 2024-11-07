@@ -1,4 +1,5 @@
-from Funciones import DOW_categoria as dw
+from FuncionesProducto import DOW_categoria as dw
+import MenuM as mm
 from colorama import Fore as fr
 
 def Menu(cursor,conexion):
@@ -17,15 +18,14 @@ def Menu(cursor,conexion):
                     case 4:
                         dw.Delete(cursor,conexion)
                     case 5:
-                        print(fr.LIGHTRED_EX+"Cerrando base de datos y saliendo del programa"+fr.RESET)
-                        cursor.close()
-                        conexion.close()
+                        print(fr.LIGHTRED_EX+"Volviendo al Menu Prinicpal"+fr.RESET)
+                        
+                        
                         break
                     case _:
                         print("Opción no valida")
             except Exception as e:
-                print(fr.RED+f"Ocurrió un error inesperado: {e} " + fr.RESET)
+                print(f"Ocurrió un error inesperado: {e}")
                 
             except ValueError as e:
-                print(fr.RED+f"No has ingresado una opción valida: {e}"+ fr.RESET)
-                
+                print(f"No has ingresado una opción valida: {e}")

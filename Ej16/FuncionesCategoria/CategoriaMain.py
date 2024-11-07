@@ -1,8 +1,8 @@
 import sys
 sys.path.append("Funciones")
 
-from Funciones import Conexion_bbdd as cx
-from Funciones import Menu as mn
+import Conexion_bbdd as cx
+import Ej16.MenuC as mn
 
 
 cursor = cx.cursor
