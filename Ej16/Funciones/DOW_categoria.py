@@ -1,4 +1,5 @@
-from colorama import Fore as fr
+
+
 def Create(cursor,conexion):
     try:
         idcategoria = int(input("Ingrese el ID de la nueva categoría: "))
@@ -6,9 +7,9 @@ def Create(cursor,conexion):
         consulta = """INSERT INTO categoria (idcategoria , categoria) VALUES (%s, %s)"""
         cursor.execute(consulta,(idcategoria,categoria))
         conexion.commit()
-        print(fr.GREEN+f"La categoría '{categoria}' ha sido creada con éxito."+fr.RESET)
+        print(f"La categoría '{categoria}' ha sido creada con éxito.")
         
-        print(fr.GREEN+"Listado de Categorías:"+fr.RESET)
+        print("Listado de Categorías:")
         consulta = """
         SELECT*FROM categoria
         ORDER BY idcategoria;
@@ -17,12 +18,12 @@ def Create(cursor,conexion):
         # Obtener y mostrar los resultados
         resultados = cursor.fetchall()  # Obtiene todos los resultados de la consulta
         for idcategoria,categoria in resultados:
-            print(fr.CYAN+f"ID: {idcategoria}, Categoria: {categoria}"+fr.RESET)
+            print(f"ID: {idcategoria}, Categoria: {categoria}")
         
     except ValueError as e:
-        print(fr.RED+f"Error al crear una nueva categoria: {e}"+fr.RESET)
+        print(f"Error al crear una nueva categoria: {e}")
     except Exception as e:
-        print(fr.RED+f"Ocurrió un error inesperado: {e}"+fr.RESET)
+        print(f"Ocurrió un error inesperado: {e}")
         
 def List(cursor,conexion):
     try:
@@ -34,12 +35,12 @@ def List(cursor,conexion):
         # Obtener y mostrar los resultados
         resultados = cursor.fetchall()  # Obtiene todos los resultados de la consulta
         for idcategoria,categoria in resultados:
-            print(fr.CYAN+f"ID: {idcategoria}, Categoria: {categoria}"+fr.RESET)
+            print(f"ID: {idcategoria}, Categoria: {categoria}")
         
     except ValueError as e:
-        print(fr.RED+f"Error al crear una actualizar categoria: {e}"+fr.RESET)
+        print(f"Error al crear una actualizar categoria: {e}")
     except Exception as e:
-        print(fr.RED+f"Ocurrió un error inesperado: {e}"+fr.RESET)
+        print(f"Ocurrió un error inesperado: {e}")
 
 
 def Actu(cursor,conexion):
@@ -49,7 +50,7 @@ def Actu(cursor,conexion):
         consulta = """UPDATE categoria SET categoria = %s WHERE idcategoria = %s"""
         cursor.execute(consulta,(categoria, idcategoria))
         conexion.commit()
-        print(fr.GREEN+f"La categoría '{categoria}' ha sido actualizada con éxito."+fr.RESET)
+        print(f"La categoría '{categoria}' ha sido actualizada con éxito.")
         
         print("Listado de Categorías Actualizada:")
         consulta = """
@@ -60,12 +61,12 @@ def Actu(cursor,conexion):
         # Obtener y mostrar los resultados
         resultados = cursor.fetchall()  # Obtiene todos los resultados de la consulta
         for idcategoria,categoria in resultados:
-            print(fr.CYAN+f"ID: {idcategoria}, Categoria: {categoria}"+fr.RESET)
+            print(f"ID: {idcategoria}, Categoria: {categoria}")
         
     except ValueError as e:
-        print(fr.RED+f"Error al crear una actualizar categoria: {e}"+fr.RESET)
+        print(f"Error al crear una actualizar categoria: {e}")
     except Exception as e:
-        print(fr.RED+f"Ocurrió un error inesperado: {e}"+fr.RESET)
+        print(f"Ocurrió un error inesperado: {e}")
 
 
 
@@ -76,10 +77,10 @@ def Delete(cursor,conexion):
         consulta = "DELETE FROM categoria WHERE idcategoria = %s"
         cursor.execute(consulta, (idcategoria,))
         conexion.commit()
-        print(fr.GREEN+f"El idcategoria '{idcategoria}' ha sido eliminada con éxito."+fr.RESET)
+        print(f"El idcategoria '{idcategoria}' ha sido eliminada con éxito.")
         
         
     except ValueError as e:
-        print(fr.RED+f"Error al crear una nueva categoria: {e}"+fr.RESET)
+        print(f"Error al crear una nueva categoria: {e}")
     except Exception as e:
-        print(fr.RED+f"Ocurrió un error inesperado: {e}"+fr.RESET)
+        print(f"Ocurrió un error inesperado: {e}")
