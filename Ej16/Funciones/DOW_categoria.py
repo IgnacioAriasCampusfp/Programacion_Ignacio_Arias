@@ -2,23 +2,29 @@
 
 def Create(cursor,conexion):
     try:
-        idcategoria = int(input("Ingrese el ID de la nueva categoría: "))
-        categoria = input("Ingrese el nombre de la nueva categoría: ").strip()
-        consulta = """INSERT INTO categoria (idcategoria , categoria) VALUES (%s, %s)"""
-        cursor.execute(consulta,(idcategoria,categoria))
+        idproducto = int(input("Ingrese el ID del producto: "))
+        nombre = input("Ingrese el nombre del producto: ").strip()
+        idcategoria = int(input("Ingrese el ID de la categoría: "))
+        medida = input("Insertar medida del producto Ej: '10 cajas x 20 bolsas' : ")
+        precio = int(input("Precio del producto: "))
+        stock = int(input("Cuanto de stock hay: "))
+        
+        
+        consulta = """INSERT INTO producto (idproducto , nombre, idcategoria, medida, precio, stock) VALUES (%s, %s,%s, %s,%s, %s)"""
+        cursor.execute(consulta,(idproducto,nombre,idcategoria,medida,precio,stock))
         conexion.commit()
-        print(f"La categoría '{categoria}' ha sido creada con éxito.")
+        print(f"El producto '{nombre}' ha sido creada con éxito.")
         
         print("Listado de Categorías:")
         consulta = """
-        SELECT*FROM categoria
-        ORDER BY idcategoria;
+        SELECT*FROM producto
+        ORDER BY idproducto;
         """
         cursor.execute(consulta)
         # Obtener y mostrar los resultados
         resultados = cursor.fetchall()  # Obtiene todos los resultados de la consulta
-        for idcategoria,categoria in resultados:
-            print(f"ID: {idcategoria}, Categoria: {categoria}")
+        for idproducto,nombre,idcategoria,medida,precio,stock in resultados:
+            print(f"IDproducto: {idproducto}, Nombre: {nombre}, IdCategoria: {idcategoria}, Medida: {medida}, Precio: {precio}, Stock: {stock}")
         
     except ValueError as e:
         print(f"Error al crear una nueva categoria: {e}")
@@ -29,13 +35,13 @@ def List(cursor,conexion):
     try:
         consulta = """
         SELECT *
-        FROM categoria;
+        FROM producto;
         """
         cursor.execute(consulta)
         # Obtener y mostrar los resultados
         resultados = cursor.fetchall()  # Obtiene todos los resultados de la consulta
-        for idcategoria,categoria in resultados:
-            print(f"ID: {idcategoria}, Categoria: {categoria}")
+        for idproducto,nombre,idcategoria,medida,precio,stock in resultados:
+            print(f"IDproducto: {idproducto}, Nombre: {nombre}, IdCategoria: {idcategoria}, Medida: {medida}, Precio: {precio}, Stock: {stock}")
         
     except ValueError as e:
         print(f"Error al crear una actualizar categoria: {e}")
@@ -45,23 +51,30 @@ def List(cursor,conexion):
 
 def Actu(cursor,conexion):
     try:
-        idcategoria = int(input("Ingrese el IDcategoria que quieras actualizar: "))
-        categoria = input("Ingrese el nombre de la categoría actualizada: ")
-        consulta = """UPDATE categoria SET categoria = %s WHERE idcategoria = %s"""
-        cursor.execute(consulta,(categoria, idcategoria))
+        idproducto = int(input("Ingrese el ID del producto: "))
+        nombre = input("Ingrese el nombre del producto: ").strip()
+        idcategoria = int(input("Ingrese el ID de la categoría: "))
+        medida = input("Insertar medida del producto Ej: '10 cajas x 20 bolsas' : ")
+        precio = int(input("Precio del producto: "))
+        stock = int(input("Cuanto de stock hay: "))
+        consulta = """
+    UPDATE producto SET nombre = %s, idcategoria = %s, medida = %s, precio = %s, stock = %s WHERE idnombre = %s"""
+        
+        cursor.execute(consulta,(nombre,idcategoria,medida,precio,stock,idproducto))
         conexion.commit()
-        print(f"La categoría '{categoria}' ha sido actualizada con éxito.")
+        print(f"El producto '{nombre}' ha sido actualizada con éxito.")
         
         print("Listado de Categorías Actualizada:")
         consulta = """
-        SELECT*FROM categoria
-        ORDER BY idcategoria;
+        SELECT*FROM producto
+        ORDER BY idproducto;
         """
         cursor.execute(consulta)
         # Obtener y mostrar los resultados
         resultados = cursor.fetchall()  # Obtiene todos los resultados de la consulta
-        for idcategoria,categoria in resultados:
-            print(f"ID: {idcategoria}, Categoria: {categoria}")
+        for idproducto,nombre,idcategoria,medida,precio,stock in resultados:
+            print(f"IDproducto: {idproducto}, Nombre: {nombre}, IdCategoria: {idcategoria}, Medida: {medida}, Precio: {precio}, Stock: {stock}")
+        
         
     except ValueError as e:
         print(f"Error al crear una actualizar categoria: {e}")
@@ -72,12 +85,12 @@ def Actu(cursor,conexion):
 
 def Delete(cursor,conexion):
     try:
-        idcategoria = int(input("Ingrese el ID de la categoría que quieras eliminar: "))
+        idproducto = int(input("Ingrese el ID del producto que quieras eliminar: "))
         
-        consulta = "DELETE FROM categoria WHERE idcategoria = %s"
-        cursor.execute(consulta, (idcategoria,))
+        consulta = "DELETE FROM producto WHERE idproducto = %s"
+        cursor.execute(consulta, (idproducto,))
         conexion.commit()
-        print(f"El idcategoria '{idcategoria}' ha sido eliminada con éxito.")
+        print(f"El producto '{idproducto}' ha sido eliminada con éxito.")
         
         
     except ValueError as e:

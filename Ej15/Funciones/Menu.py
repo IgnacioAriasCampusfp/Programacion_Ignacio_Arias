@@ -20,6 +20,8 @@ def Menu(cursor,conexion):
                     cursor.close()
                     conexion.close()
                     break
+                case _:
+                    print("Opción no valida")
     except Exception as e:
         print(fr.RED+f"Ocurrió un error inesperado: {e} " + fr.RESET)
         Menu(cursor,conexion)
