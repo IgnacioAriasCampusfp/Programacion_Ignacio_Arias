@@ -1,12 +1,12 @@
-from Ej16.FuncionesProducto import DOW_producto as dw
-import MenuM as mm
+from FuncionesCategoria import DOW_categoria as dw
 from colorama import Fore as fr
+
 
 def Menu(cursor,conexion):
     
         while True:
             try:
-                print(fr.BLUE+"=== Gestión de Productos ===\nSeleccione una opción:\n1. Crear nuevo producto\n2. Leer producto existente\n3. Actualizar un producto\n4. Eliminar un producto\n5. Salir"+fr.RESET)
+                print(fr.BLUE+"=== Gestión de Categorías ===\nSeleccione una opción:\n1. Crear nueva categoría\n2. Leer categorías existentes\n3. Actualizar una categoría\n4. Eliminar una categoría\n5. Salir"+fr.RESET)
                 opcion = int(input("> "))
                 match opcion:
                     case 1:
@@ -20,12 +20,12 @@ def Menu(cursor,conexion):
                     case 5:
                         print(fr.LIGHTRED_EX+"Volviendo al Menu Prinicpal"+fr.RESET)
                         
-                        
                         break
                     case _:
                         print("Opción no valida")
             except Exception as e:
-                print(f"Ocurrió un error inesperado: {e}")
+                print(fr.RED+f"Ocurrió un error inesperado: {e} " + fr.RESET)
                 
             except ValueError as e:
-                print(f"No has ingresado una opción valida: {e}")
+                print(fr.RED+f"No has ingresado una opción valida: {e}"+ fr.RESET)
+                

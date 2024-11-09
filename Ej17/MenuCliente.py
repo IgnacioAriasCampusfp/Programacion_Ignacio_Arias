@@ -1,12 +1,12 @@
-from Ej16.FuncionesProducto import DOW_producto as dw
-import MenuM as mm
+from FuncionesCliente import DOW_Cliente as dw
+
 from colorama import Fore as fr
 
 def Menu(cursor,conexion):
     
         while True:
             try:
-                print(fr.BLUE+"=== Gestión de Productos ===\nSeleccione una opción:\n1. Crear nuevo producto\n2. Leer producto existente\n3. Actualizar un producto\n4. Eliminar un producto\n5. Salir"+fr.RESET)
+                print(fr.BLUE+"=== Gestión de Clientes ===\nSeleccione una opción:\n1. Crear nuevo cliente\n2. Leer cliente existente\n3. Actualizar un cliente\n4. Eliminar un cliente\n5. Salir"+fr.RESET)
                 opcion = int(input("> "))
                 match opcion:
                     case 1:

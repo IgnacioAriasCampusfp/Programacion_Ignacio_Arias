@@ -1,5 +1,5 @@
-from Ej16.FuncionesProducto import DOW_producto as dw
-import MenuM as mm
+from FuncionesProducto import DOW_producto as dw
+
 from colorama import Fore as fr
 
 def Menu(cursor,conexion):
