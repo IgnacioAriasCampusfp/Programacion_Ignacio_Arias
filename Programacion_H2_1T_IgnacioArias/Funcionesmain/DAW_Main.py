@@ -63,7 +63,7 @@ def Buy(cursor, conexion):
     
     try:
         #Identidicar al cliente
-        idcliente=input("Identificate, ¿Que cliente eres?")
+        idcliente=input("Identificate, ¿Que cliente eres?: ")
         #Mostrar todos los productos
         consulta = "SELECT * FROM producto;"
         cursor.execute(consulta)
@@ -76,7 +76,7 @@ def Buy(cursor, conexion):
         while True:
             #Seleccionar el producto y las cantidades
             idproducto = input("Que producto quieres añadir al carrito: ")
-            unidades = input("Cuanta cantidad de este producto")
+            unidades = input("Cuanta cantidad de este producto: ")
             #Imprimir el producto seleccionado
             consulta = "SELECT * FROM producto WHERE idproducto = %s;"
             cursor.execute(consulta, (idproducto,))
@@ -96,7 +96,7 @@ def Buy(cursor, conexion):
             conexion.commit()
             
             #Una opcion para continuar o no
-            opcion = input("¿Desea Continuar? Si/No").lower()
+            opcion = input("¿Desea Continuar? Si/No ").lower()
             if opcion == "no":
                 break
             else:
