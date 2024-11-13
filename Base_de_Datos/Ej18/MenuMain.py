@@ -8,6 +8,7 @@ def Menu(cursor,conexion):
     
         while True:
             try:
+                #Menu Global con todas las opciones
                 print(fr.BLUE+"=== Gestión de Tablas ===\nSeleccione una opción:\n1. Tabla Categoria\n2. Tabla Producto\n3. Tabla Cliente\n4. Tabla Pedido \n5. Salir"+fr.RESET)
                 opcion = int(input("> "))
                 match opcion:

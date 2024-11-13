@@ -7,7 +7,6 @@ def Create(cursor, conexion):
         idcliente = input("Que id cliente eres/es: ").upper()
         idpedido = int(input("¿Qué número de pedido es este?: "))
         FechaP =  dt.datetime.now()
-        print("Fecha Hecha")
         FechaE = FechaP + np.timedelta64(2, 'D')
         consulta = """INSERT INTO pedido (idpedido, idcliente, fechapedido, fechaentrega) VALUES (%s, %s,%s, %s)"""
         cursor.execute(consulta, (idpedido,idcliente,FechaP,FechaE ))
@@ -52,12 +51,12 @@ def Create(cursor, conexion):
 
 def List(cursor, conexion):
     try:
-        consulta = "SELECT pedido.idcliente, detalle.* FROM detalle inner join pedido on detalle.idpedido = pedido.idpedido order by detalle.idpedido;"
+        consulta = "SELECT pedido.*, detalle.idproducto, detalle.precio, detalle.unidades, detalle.descuento FROM detalle inner join pedido on detalle.idpedido = pedido.idpedido order by detalle.idpedido;"
         cursor.execute(consulta)
         resultados = cursor.fetchall()
         print(fr.CYAN + "Listado de Detalle:" + fr.RESET)
-        for idcliente, idpedido, idproducto, precio, unidades, descuento in resultados:
-            print(fr.YELLOW+f"IDCliente:{idcliente} ,IDdetalle: {idpedido}, IDproducto: {idproducto}, Precio: {precio}, Unidades: {unidades}, Descuento: {descuento}"+ fr.RESET)
+        for idpedido, idcliente, FechaP, FechaE , idproducto, precio, unidades, descuento in resultados:
+            print(fr.YELLOW+f"IDpedido: {idpedido}, IDCliente:{idcliente}, FechaPedido:{FechaP}, FechaEntrega:{FechaE}  IDproducto: {idproducto}, Precio: {precio}, Unidades: {unidades}, Descuento: {descuento}"+ fr.RESET)
         
     except ValueError as e:
         print(fr.RED + f"Error al listar pedidos: {e}" + fr.RESET)
@@ -67,12 +66,12 @@ def List(cursor, conexion):
 def Actu(cursor, conexion):
     try:
        
-        consulta = "SELECT pedido.idcliente, detalle.* FROM detalle INNER JOIN pedido ON detalle.idpedido = pedido.idpedido ORDER BY detalle.idpedido DESC LIMIT 10;"
+        consulta = "SELECT pedido.*, detalle.idproducto, detalle.precio, detalle.unidades, detalle.descuento FROM detalle inner join pedido on detalle.idpedido = pedido.idpedido order by detalle.idpedido DESC LIMIT 10;"
         cursor.execute(consulta)
         resultados = cursor.fetchall()
         print(fr.CYAN + "Listado de Detalle:" + fr.RESET)
-        for idcliente, idpedido, idproducto, precio, unidades, descuento in resultados:
-            print(fr.YELLOW+f"IDCliente:{idcliente} ,IDdetalle: {idpedido}, IDproducto: {idproducto}, Precio: {precio}, Unidades: {unidades}, Descuento: {descuento}"+ fr.RESET)
+        for idpedido, idcliente, FechaP, FechaE , idproducto, precio, unidades, descuento in resultados:
+            print(fr.YELLOW+f"IDpedido: {idpedido}, IDCliente:{idcliente}, FechaPedido:{FechaP}, FechaEntrega:{FechaE}  IDproducto: {idproducto}, Precio: {precio}, Unidades: {unidades}, Descuento: {descuento}"+ fr.RESET)
         idpedido = int(input(fr.LIGHTCYAN_EX + "Ingrese el ID del pedido que quieras modificar: " + fr.RESET))
         while True:
             opcion= int(input("Que quieres modificar:\n 1. IDcliente \n2. IDProducto \n3. Unidades \n4. Descuento\n5. Nada mas\n>"))
