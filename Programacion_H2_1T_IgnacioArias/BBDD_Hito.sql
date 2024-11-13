@@ -18,7 +18,7 @@ CREATE TABLE cliente (
 );
 
 CREATE TABLE pedido (
-    idpedido int auto_increment primary key ,
+    idpedido int primary key ,
     idcliente int,
     foreign key (idcliente) references cliente(idcliente)
 );
@@ -33,6 +33,8 @@ CREATE TABLE detalle (
 );
 
 START TRANSACTION;
+insert into cliente (Nombre, ciudad, tlf)values("Nacho","Madrid","789456123");
+
 INSERT INTO producto VALUES (1, 'Té Dharamsala', 18);
 INSERT INTO producto VALUES (2, 'Cerveza tibetana Barley', 19);
 INSERT INTO producto VALUES (3, 'Sirope de regaliz', 10);

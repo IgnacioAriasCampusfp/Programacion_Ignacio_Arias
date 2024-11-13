@@ -64,6 +64,9 @@ def Buy(cursor, conexion):
     try:
         #Identidicar al cliente
         idcliente=input("Identificate, ¿Que cliente eres?: ")
+        #ID pedido
+        idpedido=int(input("¿Que pedido es este?: "))
+        
         #Mostrar todos los productos
         consulta = "SELECT * FROM producto;"
         cursor.execute(consulta)
@@ -73,6 +76,11 @@ def Buy(cursor, conexion):
         for idproducto, nombre,precio in resultados:
             print(fr.YELLOW + f"--->ID: {idproducto} Nombre: {nombre}, Precio: {precio} " + fr.RESET)
         
+        #Insertar en la tabla pedido el idcliente para registrarlo
+        consulta = """INSERT INTO pedido (idpedido,idcliente) VALUES (%s,%s)"""
+        cursor.execute(consulta, (idpedido,idcliente))
+        conexion.commit()
+            
         while True:
             #Seleccionar el producto y las cantidades
             idproducto = input("Que producto quieres añadir al carrito: ")
@@ -85,23 +93,20 @@ def Buy(cursor, conexion):
                 print(fr.YELLOW + f"--->Producto Seleccionado: ID: {idproducto} Nombre: {nombre}, Precio: {precio} " + fr.RESET)
                 precioproducto = precio
 
-            #Insertar en la tabla pedido el idcliente para registrarlo
-            consulta = """INSERT INTO pedido (idcliente) VALUES (%s)"""
-            cursor.execute(consulta, (idcliente, ))
-            conexion.commit()
             
             #Insertar en la tabla detalle los productos seleccionados anteriormente
-            consulta = """INSERT INTO detalle (idproducto, precio, unidades) VALUES (%s, %s, %s)"""
-            cursor.execute(consulta, (idproducto, precioproducto, unidades))
+            consulta = """INSERT INTO detalle (idpedido, idproducto, precio, unidades) VALUES (%s, %s, %s, %s)"""
+            cursor.execute(consulta, (idpedido, idproducto, precioproducto, unidades))
             conexion.commit()
-            
+                
             #Una opcion para continuar o no
             opcion = input("¿Desea Continuar? Si/No ").lower()
             if opcion == "no":
                 break
             else:
                 continue
-        
+            
+            
         
         
     except ValueError as e:
