@@ -4,6 +4,7 @@ import datetime as dt
 
 def Create(cursor, conexion):
     try:
+        #Pedir cliente y pedido para crear la consulta
         idcliente = input("Que id cliente eres/es: ").upper()
         idpedido = int(input("¿Qué número de pedido es este?: "))
         FechaP =  dt.datetime.now()
@@ -15,9 +16,10 @@ def Create(cursor, conexion):
         consulta = "SELECT * FROM producto ORDER BY idproducto;"
         cursor.execute(consulta)
         resultados = cursor.fetchall()
+        #Imprimir todos los productos
         for idproducto, nombre, idcategoria, medida, precio, stock in resultados:
             print(f"{fr.YELLOW}IDproducto: {idproducto}, Nombre: {nombre}, IdCategoria: {idcategoria}, Medida: {medida}, Precio: {precio}, Stock: {stock}{fr.RESET}")
-
+        #Bucle para meter mas de un producto en una tabla
         while True:
              #Seleccionar el producto y las cantidades
             idproducto = input("Que producto quieres añadir al carrito: ")
@@ -51,6 +53,7 @@ def Create(cursor, conexion):
 
 def List(cursor, conexion):
     try:
+        #Listar todos los detalles/pedidos
         consulta = "SELECT pedido.*, detalle.idproducto, detalle.precio, detalle.unidades, detalle.descuento FROM detalle inner join pedido on detalle.idpedido = pedido.idpedido order by detalle.idpedido;"
         cursor.execute(consulta)
         resultados = cursor.fetchall()
@@ -65,7 +68,7 @@ def List(cursor, conexion):
 
 def Actu(cursor, conexion):
     try:
-       
+       #Listar los diez ultimos detalles/pedidos
         consulta = "SELECT pedido.*, detalle.idproducto, detalle.precio, detalle.unidades, detalle.descuento FROM detalle inner join pedido on detalle.idpedido = pedido.idpedido order by detalle.idpedido DESC LIMIT 10;"
         cursor.execute(consulta)
         resultados = cursor.fetchall()
@@ -74,9 +77,11 @@ def Actu(cursor, conexion):
             print(fr.YELLOW+f"IDpedido: {idpedido}, IDCliente:{idcliente}, FechaPedido:{FechaP}, FechaEntrega:{FechaE}  IDproducto: {idproducto}, Precio: {precio}, Unidades: {unidades}, Descuento: {descuento}"+ fr.RESET)
         idpedido = int(input(fr.LIGHTCYAN_EX + "Ingrese el ID del pedido que quieras modificar: " + fr.RESET))
         while True:
+            #Bucle para las opciones de actualizar
             opcion= int(input("Que quieres modificar:\n 1. IDcliente \n2. IDProducto \n3. Unidades \n4. Descuento\n5. Nada mas\n>"))
             match opcion:
                 case 1:
+                    #Modificar idcliente
                     idcliente = input("Que id cliente es el correcto: ").upper()
                     consulta = """
                     UPDATE pedido SET idcliente = %s WHERE idpedido = %s
@@ -86,6 +91,7 @@ def Actu(cursor, conexion):
                     print(fr.GREEN + f"El pedido '{idpedido}' ha sido actualizado con éxito." + fr.RESET)
                     continue
                 case 2:
+                    #Modificar producto cogiendo de referencia el idproucto erroneo
                     productoerror = int(input("Que idproducto es cual esta mal: "))
                     idproducto = int(input("Que producto es el correcto: "))
 
@@ -97,7 +103,7 @@ def Actu(cursor, conexion):
                     # Extrae el valor del precio de la tupla obtenida
                     for precio in resultados:
                         precioproducto = precio[0]  # Accede al primer elemento de la tupla
-
+                    #Consulta para actualizar
                     consulta = """
                         UPDATE detalle SET idproducto = %s, precio = %s WHERE idpedido = %s AND idproducto = %s
                     """
@@ -106,6 +112,7 @@ def Actu(cursor, conexion):
                     print(fr.GREEN + f"El pedido '{idpedido}' ha sido actualizado con éxito." + fr.RESET)
                     continue
                 case 3:
+                    #Modificar unidades cogiendo de referencia el idproucto erroneo
                     productoerror = int(input("Que idproducto es cual esta mal: "))
                     unidades = int(input("Cuantas unidades son en realidad: "))
 
@@ -118,6 +125,7 @@ def Actu(cursor, conexion):
                     print(fr.GREEN + f"El pedido '{idpedido}' ha sido actualizado con éxito." + fr.RESET)
                     continue
                 case 4:
+                    #Modificar descuento cogiendo de referencia el idproucto erroneo
                     productoerror = int(input("Que idproducto es cual esta mal: "))                    
                     descuento = float(input("Cual es el descuento real?: "))
                     consulta = """
@@ -141,7 +149,7 @@ def Actu(cursor, conexion):
 def Delete(cursor, conexion):
     try:
         idpedido = int(input(fr.LIGHTCYAN_EX + "Ingrese el ID del pedido que quieres eliminar: " + fr.RESET))
-        
+        #Consulta de eliminar detalle y luego pedido ya que este es una FK y se necesita hacer de esta manera
         consulta = "DELETE FROM detalle WHERE idpedido = %s"
         cursor.execute(consulta, (idpedido,))
         conexion.commit()
