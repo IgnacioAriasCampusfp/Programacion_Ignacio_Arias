@@ -8,7 +8,7 @@ def Menu(cursor,conexion):
     
         while True:
             try:
-                print(fr.BLUE+"=== Gestión de Tablas ===\nSeleccione una opción:\n1. Tabla Categoria\n2. Tabla Producto\n3. Tabla Cliente\n5. Tabla Pedido \n5. Salir"+fr.RESET)
+                print(fr.BLUE+"=== Gestión de Tablas ===\nSeleccione una opción:\n1. Tabla Categoria\n2. Tabla Producto\n3. Tabla Cliente\n4. Tabla Pedido \n5. Salir"+fr.RESET)
                 opcion = int(input("> "))
                 match opcion:
                     case 1:
