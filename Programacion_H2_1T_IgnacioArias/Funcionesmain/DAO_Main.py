@@ -6,7 +6,7 @@ def Create(cursor, conexion):
     try:
         #Crear cliente
         nombre = input(fr.LIGHTCYAN_EX + "Ingrese el nombre del cliente: " + fr.RESET)
-        ciudad = input(fr.LIGHTCYAN_EX + "Ingrese la ciudad del cliente: " + fr.RESET)  
+        ciudad = input(fr.LIGHTCYAN_EX + "Ingrese la ciudad del cliente: " + fr.RESET)
         tlf = int(input(fr.LIGHTCYAN_EX +"Ingrese el telefono del cliente: "+ fr.RESET))
         #Hacer un insert para meter el cliente
         consulta = """INSERT INTO cliente (Nombre, ciudad,tlf) VALUES (%s, %s, %s)"""

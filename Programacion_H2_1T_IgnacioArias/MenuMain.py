@@ -1,5 +1,5 @@
 from colorama import Fore as fr
-from Funcionesmain import DAW_Main as dw
+from Funcionesmain import DAO_Main as dw
 
 def Menu(cursor,conexion):
     

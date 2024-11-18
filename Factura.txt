@@ -1,0 +1,20 @@
+Cliente: Nacho, Ciudad: Madrid, Teléfono: 789456123
+Pedido ID: 1, Producto: Pan fino, Unidades: 2, Precio Unidad: 9.0
+ Precio Total Pedido: 18.0
+
+Cliente: Nacho, Ciudad: Madrid, Teléfono: 789456123
+Pedido ID: 1, Producto: Empanada de cerdo, Unidades: 4, Precio Unidad: 7.0
+ Precio Total Pedido: 28.0
+
+Cliente: Nacho, Ciudad: Madrid, Teléfono: 789456123
+Pedido ID: 11080, Producto: Cerveza tibetana Barley, Unidades: 7, Precio Unidad: 19.0
+ Precio Total Pedido: 133.0
+
+Cliente: Nacho, Ciudad: Madrid, Teléfono: 789456123
+Pedido ID: 11080, Producto: Pan fino, Unidades: 45, Precio Unidad: 9.0
+ Precio Total Pedido: 405.0
+
+Cliente: Nacho, Ciudad: Madrid, Teléfono: 789456123
+Pedido ID: 11080, Producto: Queso de cabra, Unidades: 33, Precio Unidad: 3.0
+ Precio Total Pedido: 99.0
+
