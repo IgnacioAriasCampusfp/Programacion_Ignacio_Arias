@@ -2,13 +2,14 @@ from Funciones.FuncionesInscripciones import DAW_Inscripciones as dw
 
 from colorama import Fore as fr
 
+
 def Menu(cursor,conexion):
     
         while True:
             try:
                 #Mostramos un menu con las distintas opciones del CRUD
 
-                print(fr.BLUE+"=== Gestión de Clientes ===\nSeleccione una opción:\n1. Registrar inscripción \n2. Ver inscripción\n3. Eliminar inscripción\n4. Volver"+fr.RESET)
+                print(fr.BLUE+"=== Gestión de Inscripciones ===\nSeleccione una opción:\n1. Registrar inscripción \n2. Ver inscripción\n3. Eliminar inscripción\n4. Volver"+fr.RESET)
                 opcion = int(input("> "))
                 match opcion:
                     case 1:

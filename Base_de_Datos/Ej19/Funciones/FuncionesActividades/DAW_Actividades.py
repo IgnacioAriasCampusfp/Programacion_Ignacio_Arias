@@ -45,7 +45,7 @@ def Actu(cursor, conexion):
         id_entrenador = input(fr.LIGHTCYAN_EX +"Ingrese el entrenador a cargo actualizado: "+ fr.RESET)
         
         consulta = """
-        UPDATE clientes SET nombre_actividad=%s, horario=%s, duracion=%s,id_entrenador =%s  WHERE id_actividad = %s
+        UPDATE actividades SET nombre_actividad=%s, horario=%s, duracion=%s,id_entrenador =%s  WHERE id_actividad = %s;
         """
         cursor.execute(consulta, (nombre_actividad, horario, duracion, id_entrenador,id_actividad))
         conexion.commit()

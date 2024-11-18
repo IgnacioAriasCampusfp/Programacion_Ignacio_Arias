@@ -1,4 +1,5 @@
 from colorama import Fore as fr
+from prettytable import PrettyTable
 
 
 def Create(cursor, conexion):
@@ -19,15 +20,34 @@ def Create(cursor, conexion):
         print(fr.RED + f"Ocurrió un error inesperado: {e}" + fr.RESET)
         
 def List(cursor):
+   
     try:
-        #Listar todas las inscripciones relacionando tablas de la base de datos
-        consulta = "SELECT inscripciones.id_inscripcion, clientes.nombre, actividades.nombre_actividad, actividades.horario  FROM inscripciones join clientes on inscripciones.id_cliente = clientes.id_cliente join actividades on inscripciones.id_actividad = actividades.id_actividad;"
-        cursor.execute(consulta)
-        print(fr.CYAN + "Listado de Actividades:" + fr.RESET)
-        resultados = cursor.fetchall()
-        for id_inscripcion, nombre, nombre_actividad, horario in resultados:
-            print(fr.YELLOW + f"\nID Inscripción    | Cliente        | Actividad       | Horario\n------------------------------------------------------------------\n {id_inscripcion}                | {nombre}          | {nombre_actividad}            | {horario}            " + fr.RESET)                      
+        # Crear una instancia de PrettyTable
+        table = PrettyTable()
         
+        # Listar todas las inscripciones relacionando tablas de la base de datos
+        consulta = """
+        SELECT 
+            inscripciones.id_inscripcion, 
+            clientes.nombre, 
+            actividades.nombre_actividad, 
+            actividades.horario  
+        FROM 
+            inscripciones 
+        JOIN clientes ON inscripciones.id_cliente = clientes.id_cliente 
+        JOIN actividades ON inscripciones.id_actividad = actividades.id_actividad;
+        """
+        cursor.execute(consulta)
+        resultados = cursor.fetchall()
+
+        # Configurar los encabezados de la tabla
+        table.field_names = ["ID Inscripción", "Cliente", "Actividad", "Horario"]
+
+        # Agregar los resultados como filas
+        for id_inscripcion, nombre, nombre_actividad, horario in resultados:
+            table.add_row([id_inscripcion, nombre, nombre_actividad, horario])
+        print(fr.CYAN + "Listado de Inscripciones:" + fr.RESET)
+        print(table)
     except ValueError as e:
         print(fr.RED + f"Error al listar inscripciones: {e}" + fr.RESET)
     except Exception as e:

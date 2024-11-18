@@ -8,7 +8,7 @@ def Menu(cursor,conexion):
             try:
                 #Mostramos un menu con las distintas opciones del CRUD
 
-                print(fr.BLUE+"=== Gestión de Clientes ===\nSeleccione una opción:\n1. Registrar entrenador\n2. Ver entrenadores\n3. Actualizar un entrenador\n4. Eliminar un entrenador\n5. Volver"+fr.RESET)
+                print(fr.BLUE+"=== Gestión de Entrenadores ===\nSeleccione una opción:\n1. Registrar entrenador\n2. Ver entrenadores\n3. Actualizar un entrenador\n4. Eliminar un entrenador\n5. Volver"+fr.RESET)
                 opcion = int(input("> "))
                 match opcion:
                     case 1:
