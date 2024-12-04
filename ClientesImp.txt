@@ -1,0 +1,18 @@
+Juan Pérez
+30
+Gold
+Paco
+65
+Anual
+
+
+lista=[hola mundo python diccionario] 
+
+maxima = ""
+
+for palabra in palabras:
+
+    if   len(palabra) > maxima:
+        maxima = palabra
+print maxima
+

@@ -21,3 +21,11 @@ if alimentos_perecederos:
         print(f"{producto['Nombre']}")
 else:
     print("No se han ingresado productos perecederos.")
+    
+    resultado = consulta.fetchall()
+    precio = 0
+    for precio in resultado:
+        precio = precio + precio
+        i +=1
+    
+    promedio = precio/i

@@ -1,17 +1,57 @@
 from colorama import Fore as fr
+from pathlib import Path
+import numpy as np 
 
 
 def Create(cursor, conexion):
     try:
-        #Crear cliente pidiendole nombre, edad y el tipo de membresia
-        nombre = input(fr.LIGHTCYAN_EX + "Ingrese el nombre del cliente: " + fr.RESET)
-        edad = int(input(fr.LIGHTCYAN_EX + "Ingrese la edad del cliente: " + fr.RESET))  
-        tipo_membresia = input(fr.LIGHTCYAN_EX +"Ingrese la membresia cliente: "+ fr.RESET)
-        #Hacer un insert para meter el cliente
-        consulta = """INSERT INTO clientes (nombre, edad,tipo_membresia) VALUES (%s, %s, %s)"""
-        cursor.execute(consulta, (nombre,edad,tipo_membresia))
-        conexion.commit()
-        print(fr.GREEN + f"El cliente '{nombre}' ha sido creado con éxito." + fr.RESET)
+        opcion = int(input("eleccion"))
+        match opcion:
+            case 1:
+                #Crear cliente pidiendole nombre, edad y el tipo de membresia
+                nombre = input(fr.LIGHTCYAN_EX + "Ingrese el nombre del cliente: " + fr.RESET)
+                edad = int(input(fr.LIGHTCYAN_EX + "Ingrese la edad del cliente: " + fr.RESET))  
+                tipo_membresia = input(fr.LIGHTCYAN_EX +"Ingrese la membresia cliente: "+ fr.RESET)
+                #Hacer un insert para meter el cliente
+                consulta = """INSERT INTO clientes (nombre, edad,tipo_membresia) VALUES (%s, %s, %s)"""
+                "Create table cliente (nombre varchar(50), Telefono int, )"
+                cursor.execute(consulta, (nombre,edad,tipo_membresia))
+                conexion.commit()
+                print(fr.GREEN + f"El cliente '{nombre}' ha sido creado con éxito." + fr.RESET)
+            case 2:
+
+
+                archivo = Path("ClientesImp.txt")
+
+                if archivo.exists():
+                    try:
+                        with open(archivo, "r") as archivo:
+                            lineas = archivo.readlines()[:3]
+
+                            if len(lineas) < 3:
+                                raise ValueError("El archivo no contiene suficientes líneas para procesar los datos.")
+
+                            # Convertir las líneas en un array y asignar las variables
+                            array1 = np.array([linea.strip() for linea in lineas])
+                            nombre = str(array1[0])  # Convertir a cadena estándar de Python
+                            edad = int(array1[1])    # Convertir a entero estándar de Python
+                            membresia = str(array1[2])
+
+
+                            
+
+                            # Insertar en la base de datos
+                            consulta = """INSERT INTO clientes (nombre, edad, tipo_membresia) VALUES (%s, %s, %s)"""
+                            cursor.execute(consulta, (nombre, edad, membresia))
+                            conexion.commit()
+                            print("Datos insertados correctamente.")
+                    except Exception as e:
+                        print(f"Se produjo un error: {e}")
+                else:
+                    print("El archivo no existe.")
+
+
+
 
     except ValueError as e:
         print(fr.RED + f"Error al crear un cliente: {e}" + fr.RESET)
@@ -84,3 +124,4 @@ def Delete(cursor, conexion):
         print(fr.RED + f"Error al eliminar un cliente: {e}" + fr.RESET)
     except Exception as e:
         print(fr.RED + f"Ocurrió un error inesperado: {e}" + fr.RESET)
+        
