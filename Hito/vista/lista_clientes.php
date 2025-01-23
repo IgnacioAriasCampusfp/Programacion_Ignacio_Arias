@@ -67,7 +67,8 @@ $clientes = $controller->listarclientes();
       <th scope="col">Apellido</th>
       <th scope="col">Email</th>
       <th scope="col">Plan Base</th>
-      <th scope="col">Paquete Adicional Contratado</th>
+      <th scope="col">Paquete Adicional </th>
+      <th scope="col">Duracion</th>
       <th scope="col">Acciones</th>
 
     </tr>
@@ -82,6 +83,7 @@ $clientes = $controller->listarclientes();
                 <td><?= $cliente['email'] ?></td>
                 <td><?= $cliente['PlanBase'] ?></td>
                 <td><?= $cliente['PaquetesAdicionales'] ?></td>
+                <td><?= $cliente['Duracion'] ?></td>
                 <td>  
                 <button class="btn btn-danger mb-3">
 

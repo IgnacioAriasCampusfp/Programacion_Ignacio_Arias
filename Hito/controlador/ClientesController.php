@@ -8,8 +8,8 @@ class ClientesController {
         $this->modelo = new Cliente();
     }
 
-    public function agregarCliente($nombre, $apellido, $email, $telefono, $fecha_nacimiento) {
-        $this->modelo->agregarCliente($nombre, $apellido, $email, $telefono, $fecha_nacimiento);
+    public function agregarCliente($nombre,$apellidos, $correo, $Edad,$PlanBase,$PaquetesAdicionales,$Duracion) {
+        $this->modelo->agregarCliente($nombre,$apellidos, $correo, $Edad,$PlanBase,$PaquetesAdicionales,$Duracion);
     }
 
     public function listarClientes() {

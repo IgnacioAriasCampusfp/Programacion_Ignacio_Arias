@@ -1,64 +1,26 @@
+create DATABASE hitop2;
+use hitop2;
 create Table clientes(
 
     id_cliente int AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(25),
     apellidos VARCHAR(25),
     email VARCHAR(50),
-    edad INT not NULL,
-    PlanBase ENUM('Basico','Estandar','Premium'),
-    PaquetesAdicionales ENUM('Deporte','Cine','Infantil'),
-    Duracion ENUM('Mensual','Anual')
+    edad INT not NULL
+    
 
 );
 
-INSERT INTO clientes (nombre, apellidos, email, edad, PlanBase, PaquetesAdicionales, Duracion) VALUES
-('Juan', 'Pérez', 'juan.perez@example.com', 30, 'Basico', 'Cine', 'Mensual'),
-('María', 'Gómez', 'maria.gomez@example.com', 25, 'Estandar', 'Cine', 'Anual'),
-('Carlos', 'Rodríguez', 'carlos.rodriguez@example.com', 40, 'Premium', 'Deporte', 'Anual'),
-('Ana', 'Martínez', 'ana.martinez@example.com', 32, 'Basico', 'Deporte', 'Anual'),
-('Pedro', 'López', 'pedro.lopez@example.com', 28, 'Estandar', 'Deporte', 'Anual'),
-('Sofía', 'Hernández', 'sofia.hernandez@example.com', 35, 'Premium', 'Cine', 'Mensual'),
-('Luis', 'Jiménez', 'luis.jimenez@example.com', 17, 'Basico', 'Infantil', 'Mensual'),
-('Laura', 'Ruiz', 'laura.ruiz@example.com', 19, 'Estandar', 'Deporte', 'Anual'),
-('Miguel', 'Fernández', 'miguel.fernandez@example.com', 23, 'Basico', 'Cine', 'Mensual'),
-('Elena', 'Castro', 'elena.castro@example.com', 31, 'Premium', 'Infantil', 'Mensual'),
-('Jorge', 'Santos', 'jorge.santos@example.com', 45, 'Estandar', 'Deporte', 'Anual'),
-('Lucía', 'Morales', 'lucia.morales@example.com', 38, 'Basico', 'Infantil', 'Mensual'),
-('Fernando', 'Navarro', 'fernando.navarro@example.com', 27, 'Estandar', 'Cine', 'Anual'),
-('Carla', 'Ortiz', 'carla.ortiz@example.com', 16, 'Basico', 'Infantil', 'Mensual'),
-('Daniel', 'Ramos', 'daniel.ramos@example.com', 22, 'Premium', 'Cine', 'Mensual'),
-('Paula', 'Reyes', 'paula.reyes@example.com', 20, 'Basico', 'Deporte', 'Anual'),
-('Héctor', 'Romero', 'hector.romero@example.com', 29, 'Estandar', 'Deporte', 'Anual'),
-('Alicia', 'Vega', 'alicia.vega@example.com', 34, 'Premium', 'Infantil', 'Mensual'),
-('Oscar', 'Herrera', 'oscar.herrera@example.com', 26, 'Basico', 'Cine', 'Mensual'),
-('Teresa', 'Silva', 'teresa.silva@example.com', 18, 'Estandar', 'Deporte', 'Anual'),
-('Iván', 'Méndez', 'ivan.mendez@example.com', 21, 'Basico', 'Deporte', 'Anual'),
-('Cristina', 'Paredes', 'cristina.paredes@example.com', 37, 'Premium', 'Cine', 'Mensual'),
-('Adrián', 'Ibáñez', 'adrian.ibanez@example.com', 24, 'Estandar', 'Cine', 'Anual'),
-('Clara', 'Muñoz', 'clara.munoz@example.com', 41, 'Basico', 'Infantil', 'Mensual'),
-('Diego', 'Álvarez', 'diego.alvarez@example.com', 33, 'Premium', 'Deporte', 'Anual'),
-('Pablo', 'Guerrero', 'pablo.guerrero@example.com', 25, 'Estandar', 'Deporte', 'Anual'),
-('Gabriela', 'Luna', 'gabriela.luna@example.com', 39, 'Premium', 'Infantil', 'Mensual'),
-('Andrés', 'Cano', 'andres.cano@example.com', 15, 'Basico', 'Infantil', 'Mensual'),
-('Santiago', 'Molina', 'santiago.molina@example.com', 30, 'Estandar', 'Cine', 'Anual'),
-('Isabel', 'Mendoza', 'isabel.mendoza@example.com', 28, 'Basico', 'Cine', 'Mensual'),
-('Javier', 'Flores', 'javier.flores@example.com', 35, 'Premium', 'Cine', 'Mensual'),
-('Carmen', 'Díaz', 'carmen.diaz@example.com', 42, 'Basico', 'Deporte', 'Anual'),
-('Antonio', 'García', 'antonio.garcia@example.com', 26, 'Estandar', 'Deporte', 'Anual'),
-('Marta', 'Salazar', 'marta.salazar@example.com', 20, 'Premium', 'Infantil', 'Mensual'),
-('Raúl', 'Gil', 'raul.gil@example.com', 29, 'Basico', 'Cine', 'Mensual'),
-('Verónica', 'Campos', 'veronica.campos@example.com', 36, 'Estandar', 'Deporte', 'Anual'),
-('Ricardo', 'Franco', 'ricardo.franco@example.com', 40, 'Premium', 'Deporte', 'Anual'),
-('Patricia', 'Serrano', 'patricia.serrano@example.com', 32, 'Basico', 'Cine', 'Mensual'),
-('Guillermo', 'Ponce', 'guillermo.ponce@example.com', 27, 'Estandar', 'Deporte', 'Anual'),
-('Rosa', 'Lorenzo', 'rosa.lorenzo@example.com', 45, 'Premium', 'Infantil', 'Mensual'),
-('Sebastián', 'Vargas', 'sebastian.vargas@example.com', 23, 'Basico', 'Infantil', 'Mensual'),
-('Beatriz', 'Esparza', 'beatriz.esparza@example.com', 18, 'Estandar', 'Deporte', 'Anual'),
-('Tomás', 'Quintana', 'tomas.quintana@example.com', 19, 'Basico', 'Cine', 'Mensual'),
-('Nuria', 'Gallego', 'nuria.gallego@example.com', 33, 'Premium', 'Deporte', 'Anual'),
-('Álvaro', 'Esteban', 'alvaro.esteban@example.com', 21, 'Estandar', 'Cine', 'Anual'),
-('Valeria', 'Medina', 'valeria.medina@example.com', 37, 'Basico', 'Infantil', 'Mensual'),
-('Francisco', 'Lara', 'francisco.lara@example.com', 44, 'Premium', 'Cine', 'Mensual'),
-('Lorena', 'Fuentes', 'lorena.fuentes@example.com', 22, 'Estandar', 'Deporte', 'Anual');
+create table planes(
+    id_cliente INT,
+    PlanBase SET('Basico','Estandar','Premium'),
+    PaquetesAdicionales SET('Deporte','Cine','Infantil'),
+    Duracion SET('Mensual','Anual'),
+    Foreign Key (id_cliente) REFERENCES clientes(id_cliente)
+);
 
+INSERT INTO clientes (nombre,apellidos,email,edad) VALUES
+("Pepe","Arias",'asd@asd.com',20);
 
+INSERT INTO planes VALUES
+(1,'Estandar','Deporte,Cine','Mensual');

@@ -8,19 +8,42 @@ class Cliente {
         $this->conexion = new Conexion();
     }
 
-    public function agregarcliente($nombre, $apellido, $email, $telefono, $fecha_nacimiento) {
-        $query = "INSERT INTO Clientes (nombre, apellido, email, telefono, fecha_nacimiento) VALUES (?, ?, ?, ?, ?)";
+    public function agregarcliente($nombre, $apellidos, $correo, $Edad, $PlanBase, $PaquetesAdicionales, $Duracion) {
+        $query = "INSERT INTO Clientes (nombre, apellidos, email, edad) VALUES (?, ?, ?, ?)";
         $stmt = $this->conexion->conexion->prepare($query);
-        $stmt->bind_param("sssss", $nombre, $apellido, $email, $telefono, $fecha_nacimiento);
-
+        $stmt->bind_param("ssss", $nombre, $apellidos, $correo, $Edad);
+    
         if ($stmt->execute()) {
-            echo "cliente agregado con éxito.";
+            echo "Cliente agregado con éxito.";
         } else {
             echo "Error al agregar cliente: " . $stmt->error;
         }
-
+    
+        $query = "SELECT id_cliente FROM Clientes WHERE email=?";
+        $stmt = $this->conexion->conexion->prepare($query);
+        $stmt->bind_param("s", $correo);  // Cambié "i" por "s" ya que $correo es una cadena
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+    
+        if ($fila = $resultado->fetch_assoc()) {
+            $id_guardado = $fila['id_cliente'];
+        } else {
+            echo "Error al obtener el ID del cliente.";
+            return;
+        }
+    
+        $query = "INSERT INTO planes (id_cliente, PlanBase, PaquetesAdicionales, Duracion) VALUES (?, ?, ?, ?)";
+        $stmt = $this->conexion->conexion->prepare($query);
+        $stmt->bind_param("isss", $id_guardado, $PlanBase, $PaquetesAdicionales, $Duracion);
+        if ($stmt->execute()) {
+            echo "Plan agregado con éxito.";
+        } else {
+            echo "Error al agregar plan: " . $stmt->error;
+        }
+    
         $stmt->close();
     }
+    
 
     public function obtenerClientes() {
         $query = "SELECT * FROM clientes inner join planes on clientes.id_cliente = planes.id_cliente";
