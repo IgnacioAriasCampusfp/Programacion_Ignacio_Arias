@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <br>
             
             <div class="form-floating">
-            <select name="Paquetes" class="form-select" id="Paquetes" onchange="desactivarOpciones()" aria-label="Floating label select example" required>
+            <select name="Paquetes" class="form-select" id="Paquetes" onchange="globalOpciones()"  aria-label="Floating label select example" required>
                 <option selected >Paquetes Adicionales</option>
                 <option id="Deporte" value="Deporte">Deporte</option>
                 <option value="Cine">Cine</option>
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <option value="Infantil">Infantil</option>
                 <option value="Infantil,Deporte">Infantil,Deporte</option>
-                <option value="Infantil,Cine">Infantil,Deporte</option>
+                <option value="Infantil,Cine">Infantil,Cine</option>
 
                 </select>
             <label for="PaquetesExtra" id="PaquetesExtraL" hidden><b>Paquete adicional extra</b></label>

@@ -20,7 +20,6 @@ edad_.addEventListener('input', () => {
 
 function desactivarOpciones() {
   const select = document.getElementById('Paquetes');
-  const selectExtra = document.getElementById('PaquetesExtra').options;//Si el plan deporte esta activado se desactiva 
   const suscripciones = document.getElementById('Suscripciones').options;
 
   for (let i = 0; i < suscripciones.length; i++) {
@@ -31,7 +30,7 @@ function desactivarOpciones() {
         suscripcion.hidden = true;
         suscripcion.disable = true;
         suscripcion.value === 'Anual';
-        se
+        
       } else {
         suscripcion.hidden = false;
         suscripcion.disable = false;
@@ -60,5 +59,38 @@ function mostrarPaquetesExtra() {
     lable.hidden = true;
 
   }
+}
+function desactivarDuplicados() {
+  const selectExtra = document.getElementById('PaquetesExtra').options;
+  const select = document.getElementById('Paquetes').value;
+
+  if (select === 'Deporte') {
+    for (let i = 0; i < selectExtra.length; i++) {
+      const paquete = selectExtra[i];
+      if (paquete.value === 'Deporte' || 
+          paquete.value === 'Deporte,Cine' || 
+          paquete.value === 'Deporte,Infantil' ||
+          paquete.value === 'Cine,Deporte' ||
+          paquete.value === 'Infantil,Deporte'
+        ) {
+        paquete.disabled = true;
+        paquete.hidden = true;
+      } else {
+        paquete.disabled = false;
+        paquete.hidden = false;
+
+      }
+    }
+  } else {
+    for (let i = 0; i < selectExtra.length; i++) {
+      selectExtra[i].disabled = false;
+    }
+  }
+}
+
+
+function globalOpciones(){
+  desactivarOpciones();
+  desactivarDuplicados();
 }
 
