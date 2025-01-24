@@ -10,9 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $Edad = $_POST['edad'];
     $PlanBase = $_POST['PlanBase'];
     $PaquetesAdicionales = $_POST['Paquetes'];
+    $PaquetesAdicionalesExtra = $_POST['PaquetesExtra'];
+    $PaqueteF = $PaquetesAdicionales . "," . $PaquetesAdicionalesExtra;
     $Duracion = $_POST['Suscripciones'];
     $controller = new ClientesController();
-    $resultado = $controller->agregarCliente($nombre,$apellidos, $correo, $Edad,$PlanBase,$PaquetesAdicionales,$Duracion);
+    $resultado = $controller->agregarCliente($nombre,$apellidos, $correo, $Edad,$PlanBase,$PaqueteF,$Duracion);
    
     header("Location: ../index.php");
     exit();
@@ -49,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="text" class="form-control" id="edad" name="edad" required>
             </div>
             <div class="form-floating">
-                <select class="form-select" id="PlanBase" name="PlanBase" aria-label="Floating label select example" required>
+                <select class="form-select" id="PlanBase" name="PlanBase" onchange="mostrarPaquetesExtra()" aria-label="Floating label select example" required>
                     <option selected>Plan Base</option>
                     <option value="Basico">Basico (1 dispositivo)</option>
                     <option value="Estandar">Estandar (2 dispositivo)</option>
@@ -58,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="floatingSelect">Works with selects</label>
             </div>
             <br>
+            
             <div class="form-floating">
             <select name="Paquetes" class="form-select" id="Paquetes" onchange="desactivarOpciones()" aria-label="Floating label select example" required>
                 <option selected >Paquetes Adicionales</option>
@@ -66,6 +69,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <option value="Infantil">Infantil</option>
                 </select>
             <label for="Paquetes"><b>Paquete adicional</b></label>
+            </div>
+            <br>
+            <div class="form-floating">
+            <select name="PaquetesExtra" class="form-select" id="PaquetesExtra"  aria-label="Floating label select example" hidden disabled>
+                <option selected >Paquetes Adicionales Extra</option>
+                <option value="Deporte">Deporte</option>
+                <option value="Deporte,Infantil">Deporte,Infantil</option>
+                <option value="Deporte,Cine">Deporte,Cine</option>
+
+                <option value="Cine">Cine</option>
+                <option value="Cine,Deporte">Cine,Deporte</option>
+                <option value="Cine,Infantil">Cine,Infantil</option>
+
+
+                <option value="Infantil">Infantil</option>
+                <option value="Infantil,Deporte">Infantil,Deporte</option>
+                <option value="Infantil,Cine">Infantil,Deporte</option>
+
+                </select>
+            <label for="PaquetesExtra" id="PaquetesExtraL" hidden><b>Paquete adicional extra</b></label>
             </div>
             <br>
             <div class="form-floating" id="suscripciones-container">

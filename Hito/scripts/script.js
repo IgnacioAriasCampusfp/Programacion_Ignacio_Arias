@@ -20,21 +20,45 @@ edad_.addEventListener('input', () => {
 
 function desactivarOpciones() {
   const select = document.getElementById('Paquetes');
+  const selectExtra = document.getElementById('PaquetesExtra').options;//Si el plan deporte esta activado se desactiva 
   const suscripciones = document.getElementById('Suscripciones').options;
 
   for (let i = 0; i < suscripciones.length; i++) {
     const suscripcion = suscripciones[i];
 
-    if (suscripcion.value === 'Mensual') {
-      if (select.value === 'Deporte') {
+    if (select.value === 'Deporte') {
+      if (suscripcion.value === 'Mensual') {
         suscripcion.hidden = true;
+        suscripcion.disable = true;
+        suscripcion.value === 'Anual';
+        se
       } else {
         suscripcion.hidden = false;
+        suscripcion.disable = false;
+
       }
     } else {
       suscripcion.hidden = false;
+      suscripcion.disable = false;
+
     }
   }
 }
+function mostrarPaquetesExtra() {
+  const paquetesExtra = document.getElementById('PaquetesExtra');
+  const planBase = document.getElementById('PlanBase');
+  const seleccion = planBase.options[planBase.selectedIndex].value;
+  const lable = document.getElementById('PaquetesExtraL')
 
+  if (seleccion === 'Estandar' || seleccion === 'Premium' ) {
+    paquetesExtra.hidden = false;
+    paquetesExtra.disabled = false;
+    lable.hidden = false;
+  } else {
+    paquetesExtra.hidden = true;
+    paquetesExtra.disabled = true;
+    lable.hidden = true;
+
+  }
+}
 
