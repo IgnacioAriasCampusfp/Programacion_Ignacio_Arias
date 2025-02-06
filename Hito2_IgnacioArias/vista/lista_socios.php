@@ -3,7 +3,7 @@ require_once '../controlador/SociosController.php';
 session_start();
 session_regenerate_id(true);
 $controller = new SociosController();
-$socios = $controller->listarSocios();
+//$socios = $controller->listarSocios();
 if ($_SESSION['usuario'] == 'admin' ||$_SESSION['usuario'] == 'user' ) { 
 
 } else {
@@ -81,7 +81,7 @@ if ($_SESSION['usuario'] == 'admin' ||$_SESSION['usuario'] == 'user' ) {
 
             <!-- Usuario logueado y botón de cerrar sesión alineados a la derecha -->
             <div class="d-flex ms-auto align-items-center">
-                <span class="me-3">Bienvenido, <strong><?php echo $_SESSION['usuario']; ?></strong></span>
+                <span class="me-3">Bienvenido, <strong><?php echo $_SESSION['nombre']; ?></strong></span>
                 <a href="logout.php" class="btn btn-danger">Cerrar sesión</a>
             </div>
         </div>
@@ -106,8 +106,8 @@ if ($_SESSION['usuario'] == 'admin' ||$_SESSION['usuario'] == 'user' ) {
     </tr>
   </thead>
   <tbody>
-  <?php foreach ($socios as $socio): ?>
-            <tr>
+ <!-- <?php foreach ($socios as $socio): ?>
+         <tr>
                 <td scope="row"><?= $socio['id_socio'] ?></td>
                 <td><?= $socio['nombre'] ?></td>
                 <td><?= $socio['apellido'] ?></td>
@@ -122,7 +122,7 @@ if ($_SESSION['usuario'] == 'admin' ||$_SESSION['usuario'] == 'user' ) {
                 </td>
             </tr>
         <?php endforeach; ?>
-    
+ -->
   </tbody>
 </table>
 

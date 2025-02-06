@@ -10,20 +10,24 @@ class Usuario
         $this->conexion = new Conexion();
     }
 
-    public function agregarUsuario($usuario, $contraseña, $rol)
-    {
-        $query = "INSERT INTO usuarios (usuario, passw, rol) VALUES (?, ?, ?)";
-        $stmt = $this->conexion->conexion->prepare($query);
-        $stmt->bind_param("sss", $usuario, $contraseña, $rol);
+    public function agregarUsuario($usuario, $passw, $email, $rol)
+{
+    // Hashear la contraseña antes de almacenarla
+    $hashedPassword = password_hash($passw, PASSWORD_DEFAULT);
 
-        if ($stmt->execute()) {
-            echo "Usuario agregado con éxito.";
-        } else {
-            echo "Error al agregar Usuario: " . $stmt->error;
-        }
+    $query = "INSERT INTO usuarios (usuario, passw, email, rol) VALUES (?, ?, ?, ?)";
+    $stmt = $this->conexion->conexion->prepare($query);
+    $stmt->bind_param("ssss", $usuario, $hashedPassword, $email, $rol);
 
-        $stmt->close();
+    if ($stmt->execute()) {
+        echo "Usuario agregado con éxito.";
+    } else {
+        echo "Error al agregar Usuario: " . $stmt->error;
     }
+
+    $stmt->close();
+}
+
 
     public function obtenerUsuarios()
     {
@@ -59,13 +63,36 @@ class Usuario
             return null; // Usuario no existe
         }
     }
+    public function obtenerUsuarioPorEmail($email)
+    {
+        $query = "SELECT * FROM usuarios WHERE email = ?";
+        $stmt = $this->conexion->conexion->prepare($query);
+
+        if (!$stmt) {
+            die("Error en la preparación de la consulta: " . $this->conexion->conexion->error);
+        }
+
+        $stmt->bind_param("s", $email);
+        if (!$stmt->execute()) {
+            die("Error al ejecutar la consulta: " . $stmt->error);
+        }
+
+        $resultado = $stmt->get_result();
+
+        if ($resultado->num_rows > 0) {
+            return $resultado->fetch_assoc();
+        } else {
+            error_log("Usuario no encontrado: " . $email); // Guardar en logs
+            return null; // Usuario no existe
+        }
+    }
 
 
-    public function actualizarUsuario($id_Usuario, $usuario, $contraseña, $rol)
+    public function actualizarUsuario($id_Usuario, $usuario, $passw, $rol)
     {
         $query = "UPDATE Usuarios SET usuario = ? , passw = ?, rol= ? WHERE id_usuario = ?";
         $stmt = $this->conexion->conexion->prepare($query);
-        $stmt->bind_param("sssi", $usuario, $contraseña, $rol, $id_Usuario);
+        $stmt->bind_param("sssi", $usuario, $passw, $rol, $id_Usuario);
 
         if ($stmt->execute()) {
             echo "Usuario actualizado con éxito.";

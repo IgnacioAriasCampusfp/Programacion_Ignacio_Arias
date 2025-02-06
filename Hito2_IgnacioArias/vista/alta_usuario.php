@@ -1,5 +1,7 @@
 <?php
 session_start();
+error_reporting(E_ERROR);
+
 require_once '../controlador/UsuariosController.php';
 
 
@@ -7,13 +9,24 @@ require_once '../controlador/UsuariosController.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre'];
     $passw = $_POST['passw'];
+    $email = $_POST['email'];
     $rol = $_POST['rol'];
 
     $controller = new UsuariosController();
-    $resultado = $controller->agregarUsuario($nombre, $passw, $rol);
+    $checkemail = $controller->obtenerUsuarioPorEmail($email);
 
-    header("Location: listar_usuarios.php");
-    exit();
+   
+    if ($checkemail == null) {
+        $resultado = $controller->agregarUsuario($nombre, $passw, $email, $rol);
+        header("Location: ../index.php");
+        exit();
+    }
+
+
+    else {
+       error_log("Error de inicio de sesión para usuario: " . $usuariolog);
+        $error_message = "Este correo ya esta registrado.";
+    }
 }
 
 ?>
@@ -25,31 +38,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <title>Añadir Usuario</title>
+    <title>Registro</title>
 </head>
 
 <body>
     <div class="container mt-4">
-        <h1>Añadir Usuario</h1>
+        <h1>Registro</h1>
         <form action="alta_usuario.php" method="POST">
+        <?php if (isset($error_message)): ?>
+            <p class="error-message"><?= $error_message ?></p>
+        <?php endif; ?>
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre de usuario</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" required>
             </div>
             <div class="mb-3">
-                <label for="passw" class="form-label">passw</label>
-                <input type="password" class="form-control" id="passw" name="passw" required>
+                <label for="email" class="form-label">Correo Electronico</label>
+                <input type="email" class="form-control" id="email" name="email" required>
             </div>
             <div class="mb-3">
+                <label for="passw" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="passw" name="passw" required>
+            </div>
+            
+            <?php if ($_SESSION['usuario'] == 'admin') { ?>
+            <div class="mb-3">
                 <label for="rol" class="form-label">Rol</label>
-                <select class="form-select" id="rol" name="rol" required>
-                <?php if ($_SESSION['usuario'] == 'admin') { ?>
+                <select class="form-select" id="rol" name="rol" >
+                
 
                     <option value="admin">Admin</option>
-                <?php }?>
+                
                     <option value="user" selected>User</option>
                 </select>
             </div>
+            <?php }?>
 
 
             <button type="submit" class="btn btn-primary">Guardar</button>

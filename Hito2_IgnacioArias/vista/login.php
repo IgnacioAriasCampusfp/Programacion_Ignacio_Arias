@@ -5,27 +5,30 @@ session_start();
 session_regenerate_id(true);
 $controller = new UsuariosController;
 
-
-
+// Abrir archivo de log
+$logFile = 'login.log';
+$logMessage = date('Y-m-d H:i:s') . " - Intento de inicio de sesión\n";
+file_put_contents($logFile, $logMessage, FILE_APPEND);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuariolog = $_POST['username'];
     $password = $_POST['password'];
     $user = $controller->obtenerUsuarioPorNombre($usuariolog);
 
-    // 🔍 Verificar si se está obteniendo el usuario
-    error_log("Usuario obtenido: " . print_r($user, true));
 
-    if ($usuariolog == $user['usuario'] && $password == $user['passw']) {
+
+    if ($user && $usuariolog == $user['usuario'] && password_verify($password, $user['passw'])) {
         $_SESSION['usuario'] = $user['rol'];
+        $_SESSION['nombre'] = $usuariolog;
+        file_put_contents($logFile, "Inicio de sesión exitoso para: $usuariolog\n", FILE_APPEND);
         header("Location: ../index.php");
         exit();
     } else {
         error_log("Error de inicio de sesión para usuario: " . $usuariolog);
+        file_put_contents($logFile, "Error de inicio de sesión para usuario: $usuariolog\n", FILE_APPEND);
         $error_message = "Usuario o contraseña incorrectos.";
     }
 }
-
 
 ?>
 
@@ -49,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form action="#" method="POST">
             <div class="input-group">
                 <label for="username">Usuario</label>
-                <input type="text" id="username" name="username" >
+                <input type="text" id="username" name="username">
             </div>
             <div class="input-group">
                 <label for="password">Contraseña</label>
@@ -58,7 +61,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit" class="login-button">Ingresar</button>
             <br>
             <br>
-            <a href="alta_usuario.php" class="login-button">Registrarse</a>
+            <div style="text-align: center;">
+                <a href="alta_usuario.php" class="login-button">Registrarse</a>
+            </div>
+
 
         </form>
     </div>

@@ -10,9 +10,9 @@ class UsuariosController
         $this->modelo = new Usuario();
     }
 
-    public function agregarUsuario($usuario, $contraseña, $rol)
+    public function agregarUsuario($usuario, $contraseña,$email, $rol)
     {
-        $this->modelo->agregarUsuario($usuario, $contraseña, $rol);
+        $this->modelo->agregarUsuario($usuario, $contraseña,$email, $rol);
     }
 
     public function listarUsuarios()
@@ -35,5 +35,10 @@ class UsuariosController
     public function obtenerUsuarioPorNombre($usuario)
     {
         return $this->modelo->obtenerUsuarioPorNombre($usuario);
+    }
+    
+    public function obtenerUsuarioPorEmail($email)
+    {
+        return $this->modelo->obtenerUsuarioPorEmail($email);
     }
 }
