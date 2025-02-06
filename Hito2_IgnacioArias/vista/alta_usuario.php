@@ -1,28 +1,31 @@
 <?php
+//Inicio de sesion
 session_start();
 error_reporting(E_ERROR);
-
+//Incluimos el controlador de Usuarios
 require_once '../controlador/UsuariosController.php';
 
 
-
+//Atraves del metodo POST obtenemos los datos del formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //Obtenemos los datos del formulario
     $nombre = $_POST['nombre'];
     $passw = $_POST['passw'];
     $email = $_POST['email'];
     $rol = $_POST['rol'];
 
     $controller = new UsuariosController();
+    //Verificamos si el correo ya esta registrado
     $checkemail = $controller->obtenerUsuarioPorEmail($email);
 
-   
+   //Si el correo no esta registrado, se agrega el usuario
     if ($checkemail == null) {
         $resultado = $controller->agregarUsuario($nombre, $passw, $email, $rol);
         header("Location: ../index.php");
         exit();
     }
 
-
+    //Si el correo ya esta registrado, se muestra un mensaje de error
     else {
        error_log("Error de inicio de sesión para usuario: " . $usuariolog);
         $error_message = "Este correo ya esta registrado.";
@@ -72,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <option value="user" selected>User</option>
                 </select>
             </div>
+            <!-- Un checkbox para activar el boton atraves del onchange enabler() que se desactiva o se active -->
                 <input type="checkbox" id="checkbox" onchange="enabler()">
                 <label for="checkbox" >Aceptar términos y condiciones</label>
 

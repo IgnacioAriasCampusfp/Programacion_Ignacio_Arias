@@ -1,10 +1,17 @@
 <?php
+//Obtenemos el controlador de tareas
 require_once '../controlador/TareaController.php';
+//Iniciamos la sesión con un id regenativo
 session_start();
 session_regenerate_id(true);
+//Creamos una instancia del controlador de tareas
 $controller = new TareasController();
+//Obtenemos el email de la sesión
 $email = $_SESSION['email'];
+//Obtenemos las tareas del usuario atraves de la función listarTareas
 $tareas = $controller->listarTareas($email);
+
+//Si el usuario no es admin o user lo redirigimos a la página de login
 if ($_SESSION['usuario'] == 'admin' || $_SESSION['usuario'] == 'user') {
 } else {
     header("Location: login.php");
@@ -33,7 +40,7 @@ if ($_SESSION['usuario'] == 'admin' || $_SESSION['usuario'] == 'user') {
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <!-- tareas -->
+                    <!-- Barra de navegacion para Tareas -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdowntareas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Tareas
@@ -69,7 +76,8 @@ if ($_SESSION['usuario'] == 'admin' || $_SESSION['usuario'] == 'user') {
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($tareas as $tarea): ?>
+            <?php //Recorremos las tareas y las mostramos en la tabla 
+            foreach ($tareas as $tarea): ?>
                 <tr>
                     <td scope="row"><strong><?= $tarea['titulo'] ?></strong></td>
                     <td class="w-50"><?= $tarea['descripcion'] ?></td>
@@ -77,6 +85,8 @@ if ($_SESSION['usuario'] == 'admin' || $_SESSION['usuario'] == 'user') {
                         <form action="editar_tarea.php" method="POST" onchange="this.submit()">
                         <input type="hidden" name="id_tarea" value="<?= $tarea['id_tarea'] ?>">
                             <select name="estado" class="form-select">
+                                <!-- Mostramos el estado de la tarea en un select -->
+                                 <!-- Podemos elegir el estado de la tarea lanzaremos una funcion en JS para que lo cambie a la base de datos -->
                                 <option value="completada" <?= $tarea['estado'] == 'Completada' ? 'selected' : '' ?>>Completada</option>
                                 <option value="en_curso" <?= $tarea['estado'] == 'En_curso' ? 'selected' : '' ?>>En curso</option>
                                 <option value="pausada" <?= $tarea['estado'] == 'Pausada' ? 'selected' : '' ?>>Pausada</option>

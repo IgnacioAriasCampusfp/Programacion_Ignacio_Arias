@@ -7,12 +7,13 @@ class Tarea {
     public function __construct() {
         $this->conexion = new Conexion();
     }
-
+    //Metodo para agregar un usuario atraves de los datos a la base de datos
     public function agregarTarea($email, $titulo, $descripcion, $estado) {
+        //Preparamos la consulta para agregar un usuario
         $query = "INSERT INTO Tareas (email, titulo, descripcion, estado) VALUES (?, ?, ?, ?)";
         $stmt = $this->conexion->conexion->prepare($query);
         $stmt->bind_param("ssss", $email, $titulo, $descripcion, $estado);
-
+        //Si la consulta se ejecuta correctamente, se muestra un mensaje de exito
         if ($stmt->execute()) {
             echo "Tarea agregado con éxito.";
         } else {
@@ -35,15 +36,7 @@ class Tarea {
         return $Tareas;
     }
 
-    public function obtenerTareaPorId($id_Tarea) {
-        $query = "SELECT * FROM Tareas WHERE id_Tarea = ?";
-        $stmt = $this->conexion->conexion->prepare($query);
-        $stmt->bind_param("i", $id_Tarea);
-        $stmt->execute();
-        $resultado = $stmt->get_result();
-        return $resultado->fetch_assoc();
-    }
-
+    //Funcion para actualizar un usuario atraves de los parametros
     public function actualizarTarea($id_Tarea, $estado) {
         $query = "UPDATE tareas SET estado = ? WHERE id_tarea = ?";
         $stmt = $this->conexion->conexion->prepare($query);
@@ -57,7 +50,7 @@ class Tarea {
 
         $stmt->close();
     }
-
+    //Funcion para eliminar un usuario atraves del id
     public function eliminarTarea($id_Tarea) {
         $query = "DELETE FROM Tareas WHERE id_tarea = ?";
         $stmt = $this->conexion->conexion->prepare($query);

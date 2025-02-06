@@ -16,9 +16,6 @@ class TareasController {
         return $this->modelo->obtenerTareasPorEmail($email);
     }
 
-    public function obtenerTareaPorId($id_Tarea) {
-        return $this->modelo->obtenerTareaPorId($id_Tarea);
-    }
 
     public function actualizarTarea($id_Tarea, $estado) {
         $this->modelo->actualizarTarea($id_Tarea, $estado);

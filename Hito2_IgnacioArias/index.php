@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-
-if ($_SESSION['usuario'] == 'admin') {
+// Si el usuario es admin, lo redirigimos a la lista de tareas
+if ($_SESSION['usuario'] == 'admin' || $_SESSION['usuario'] == 'user') {
     
     header("Location: vista/lista_tarea.php");
-}elseif ($_SESSION['usuario'] == 'user') {
-    header("Location: vista/lista_tarea.php");
-}else {
+    
+}// Si no, lo redirigimos al login
+else {
     header("Location: vista/login.php");
 }
 ?>

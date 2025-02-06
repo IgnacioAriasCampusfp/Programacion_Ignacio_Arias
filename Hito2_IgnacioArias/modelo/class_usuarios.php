@@ -9,60 +9,27 @@ class Usuario
     {
         $this->conexion = new Conexion();
     }
-
+    //Metodo para agregar un usuario atraves de los parametros usuario, passw, email y rol a la base de datos
     public function agregarUsuario($usuario, $passw, $email, $rol)
-{
-    // Hashear la contraseña antes de almacenarla
-    $hashedPassword = password_hash($passw, PASSWORD_DEFAULT);
-
-    $query = "INSERT INTO usuarios (usuario, passw, email, rol) VALUES (?, ?, ?, ?)";
-    $stmt = $this->conexion->conexion->prepare($query);
-    $stmt->bind_param("ssss", $usuario, $hashedPassword, $email, $rol);
-
-    if ($stmt->execute()) {
-        echo "Usuario agregado con éxito.";
-    } else {
-        echo "Error al agregar Usuario: " . $stmt->error;
-    }
-
-    $stmt->close();
-}
-
-
-    public function obtenerUsuarios()
     {
-        $query = "SELECT * FROM usuarios";
-        $resultado = $this->conexion->conexion->query($query);
-        $Usuarios = [];
-        while ($fila = $resultado->fetch_assoc()) {
-            $Usuarios[] = $fila;
-        }
-        return $Usuarios;
-    }
-
-    public function obtenerUsuarioPorNombre($nombre)
-    {
-        $query = "SELECT * FROM usuarios WHERE usuario = ?";
+        //Encriptamos la contraseña atraves de la funcion password_hash
+        $hashedPassword = password_hash($passw, PASSWORD_DEFAULT);
+        //Preparamos la consulta para agregar un usuario
+        $query = "INSERT INTO usuarios (usuario, passw, email, rol) VALUES (?, ?, ?, ?)";
         $stmt = $this->conexion->conexion->prepare($query);
+        $stmt->bind_param("ssss", $usuario, $hashedPassword, $email, $rol);
 
-        if (!$stmt) {
-            die("Error en la preparación de la consulta: " . $this->conexion->conexion->error);
-        }
-
-        $stmt->bind_param("s", $nombre);
-        if (!$stmt->execute()) {
-            die("Error al ejecutar la consulta: " . $stmt->error);
-        }
-
-        $resultado = $stmt->get_result();
-
-        if ($resultado->num_rows > 0) {
-            return $resultado->fetch_assoc();
+        //Si la consulta se ejecuta correctamente, se muestra un mensaje de exito
+        if ($stmt->execute()) {
+            echo "Usuario agregado con éxito.";
         } else {
-            error_log("Usuario no encontrado: " . $nombre); // Guardar en logs
-            return null; // Usuario no existe
+            echo "Error al agregar Usuario: " . $stmt->error;
         }
+
+        $stmt->close();
     }
+
+    //Metodo para obtener todos los usuarios de la base de datos atraves del email
     public function obtenerUsuarioPorEmail($email)
     {
         $query = "SELECT * FROM usuarios WHERE email = ?";
@@ -73,27 +40,30 @@ class Usuario
         }
 
         $stmt->bind_param("s", $email);
+        //Si la consulta no se ejecuta correctamente, se muestra un mensaje de error
         if (!$stmt->execute()) {
             die("Error al ejecutar la consulta: " . $stmt->error);
         }
 
         $resultado = $stmt->get_result();
-
+        //Si el resultado de la consulta es mayor a 0, se retorna el resultado
         if ($resultado->num_rows > 0) {
             return $resultado->fetch_assoc();
-        } else {
-            error_log("Usuario no encontrado: " . $email); // Guardar en logs
-            return null; // Usuario no existe
+        }//Si no, se muestra un mensaje de error 
+        else {
+            error_log("Usuario no encontrado: " . $email); 
+            return null; 
         }
     }
 
-
+    //Funcion para actualizar un usuario atraves de los parametros
     public function actualizarUsuario($id_Usuario, $usuario, $passw, $rol)
     {
+        //Consulta para actualizar un usuario
         $query = "UPDATE Usuarios SET usuario = ? , passw = ?, rol= ? WHERE id_usuario = ?";
         $stmt = $this->conexion->conexion->prepare($query);
         $stmt->bind_param("sssi", $usuario, $passw, $rol, $id_Usuario);
-
+        //Si la consulta se ejecuta correctamente, se muestra un mensaje de exito sino, se muestra un mensaje de error
         if ($stmt->execute()) {
             echo "Usuario actualizado con éxito.";
         } else {
@@ -103,12 +73,13 @@ class Usuario
         $stmt->close();
     }
 
+    //Funcion para eliminar un usuario atraves del id del usuario
     public function eliminarUsuario($id_Usuario)
     {
         $query = "DELETE FROM usuarios WHERE id_usuario = ?";
         $stmt = $this->conexion->conexion->prepare($query);
         $stmt->bind_param("i", $id_Usuario);
-
+        //Si la consulta se ejecuta correctamente, se muestra un mensaje de exito sino, se muestra un mensaje de error
         if ($stmt->execute()) {
             echo "Usuario eliminado con éxito.";
         } else {

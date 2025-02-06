@@ -15,13 +15,6 @@ class UsuariosController
         $this->modelo->agregarUsuario($usuario, $contraseña,$email, $rol);
     }
 
-    public function listarUsuarios()
-    {
-        return $this->modelo->obtenerUsuarios();
-    }
-
-
-
     public function actualizarUsuario($id_usuario, $usuario, $contraseña, $rol)
     {
         $this->modelo->actualizarUsuario($id_usuario, $usuario, $contraseña, $rol);
@@ -32,11 +25,6 @@ class UsuariosController
         $this->modelo->eliminarUsuario($id_usuario);
     }
 
-    public function obtenerUsuarioPorNombre($usuario)
-    {
-        return $this->modelo->obtenerUsuarioPorNombre($usuario);
-    }
-    
     public function obtenerUsuarioPorEmail($email)
     {
         return $this->modelo->obtenerUsuarioPorEmail($email);

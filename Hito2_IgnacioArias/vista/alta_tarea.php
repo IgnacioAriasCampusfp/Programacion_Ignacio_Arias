@@ -1,18 +1,25 @@
 <?php
+//Iniciamos sesión
 session_start();
 require_once '../controlador/TareaController.php';
+//Si el usuario es admin o user, se muestra alta_tarea.php
 if ($_SESSION['usuario'] == 'admin' || $_SESSION['usuario'] == 'user') {
-} else {
+} //Si no, se redirige a login.php
+else {
     header("Location: login.php");
 }
 
-
+//Atraves del metodo POST obtenemos los datos del formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //Obtenemos los datos del formulario
     $titulo = $_POST['titulo'];
     $descripcion = $_POST['descripcion'];
+    //Obtenemos el email del usuario a traves del usuario logueado
     $email = $_SESSION['email'];
+    //Obtenemos el estado de la tarea
     $estado = $_POST['estado'];
     $controller = new TareasController();
+    //Agregamos la tarea atraves del metodo agregarTarea
     $resultado = $controller->agregarTarea($email, $titulo, $descripcion, $estado);
 
     header("Location: ../index.php");
