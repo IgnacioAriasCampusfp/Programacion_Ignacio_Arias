@@ -37,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styleError.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <title>Registro</title>
 </head>
@@ -61,8 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="password" class="form-control" id="passw" name="passw" required>
             </div>
             
-            <?php if ($_SESSION['usuario'] == 'admin') { ?>
-            <div class="mb-3">
+            <div class="mb-3" hidden>
                 <label for="rol" class="form-label">Rol</label>
                 <select class="form-select" id="rol" name="rol" >
                 
@@ -72,12 +72,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <option value="user" selected>User</option>
                 </select>
             </div>
-            <?php }?>
+                <input type="checkbox" id="checkbox" onchange="enabler()">
+                <label for="checkbox" >Aceptar términos y condiciones</label>
 
-
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <br>
+            <br>
+            <button id="button" type="submit" class="btn btn-primary" disabled>Guardar</button>
         </form>
     </div>
+    <script src="../script/script.js"></script>
 </body>
 
 </html>

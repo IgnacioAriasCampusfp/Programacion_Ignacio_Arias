@@ -5,27 +5,22 @@ session_start();
 session_regenerate_id(true);
 $controller = new UsuariosController;
 
-// Abrir archivo de log
-$logFile = 'login.log';
-$logMessage = date('Y-m-d H:i:s') . " - Intento de inicio de sesión\n";
-file_put_contents($logFile, $logMessage, FILE_APPEND);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $usuariolog = $_POST['username'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
-    $user = $controller->obtenerUsuarioPorNombre($usuariolog);
+    $user = $controller->obtenerUsuarioPorEmail($email);
 
 
 
-    if ($user && $usuariolog == $user['usuario'] && password_verify($password, $user['passw'])) {
+    if ($user && $email == $user['email'] && password_verify($password, $user['passw'])) {
         $_SESSION['usuario'] = $user['rol'];
-        $_SESSION['nombre'] = $usuariolog;
-        file_put_contents($logFile, "Inicio de sesión exitoso para: $usuariolog\n", FILE_APPEND);
+        $_SESSION['nombre'] = $user['usuario'];
+        $_SESSION['email'] = $user['email'];
         header("Location: ../index.php");
         exit();
     } else {
         error_log("Error de inicio de sesión para usuario: " . $usuariolog);
-        file_put_contents($logFile, "Error de inicio de sesión para usuario: $usuariolog\n", FILE_APPEND);
         $error_message = "Usuario o contraseña incorrectos.";
     }
 }
@@ -51,8 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
         <form action="#" method="POST">
             <div class="input-group">
-                <label for="username">Usuario</label>
-                <input type="text" id="username" name="username">
+                <label for="email">Correo Electronico</label>
+                <input type="email" id="email" name="email">
             </div>
             <div class="input-group">
                 <label for="password">Contraseña</label>
