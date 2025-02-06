@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h1>Añadir Tarea</h1>
         <form action="alta_tarea.php" method="POST">
             <div class="mb-3">
-                <label for="titulo" class="form-label">Titulo</label>
+                <label for="titulo" class="form-label" maxlength="25">Titulo</label>
                 <input type="text" class="form-control" id="titulo" name="titulo" required>
             </div>
             <div class="mb-3">

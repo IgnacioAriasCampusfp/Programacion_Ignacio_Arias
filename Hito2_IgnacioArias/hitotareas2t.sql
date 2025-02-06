@@ -1,7 +1,7 @@
 create DATABASE HitoTareas2T;
 
 create Table usuarios(
-    email VARCHAR(25) PRIMARY KEY,
+    email VARCHAR(100) PRIMARY KEY,
     usuario VARCHAR(25),
     passw VARCHAR(255),
     rol set('admin','user')
@@ -10,7 +10,7 @@ create Table usuarios(
 create table tareas(
 
     id_tarea int AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(25),
+    email VARCHAR(100),
     titulo VARCHAR(25),
     descripcion VARCHAR(255),
     estado set('Completada','En_curso','Pausada','Cancelada'),
@@ -18,5 +18,4 @@ create table tareas(
 
 );
 
-insert into usuarios values('1admin@admin.com','admi1','$2y$10$S2ZVNqU/8YSTqkJHvLXMOOOlvXxtKvh.gwqDqFOM7fkhHj4j4lefm','admin');
 

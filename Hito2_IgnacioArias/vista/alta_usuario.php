@@ -50,15 +50,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p class="error-message"><?= $error_message ?></p>
         <?php endif; ?>
             <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre de usuario</label>
+                <label for="nombre" class="form-label" maxlength="25">Nombre de usuario</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" required>
             </div>
             <div class="mb-3">
-                <label for="email" class="form-label">Correo Electronico</label>
+                <label for="email" class="form-label" maxlength="100">Correo Electronico</label>
                 <input type="email" class="form-control" id="email" name="email" required>
             </div>
             <div class="mb-3">
-                <label for="passw" class="form-label">Contraseña</label>
+                <label for="passw" class="form-label" maxlength="255">Contraseña</label>
                 <input type="password" class="form-control" id="passw" name="passw" required>
             </div>
             
