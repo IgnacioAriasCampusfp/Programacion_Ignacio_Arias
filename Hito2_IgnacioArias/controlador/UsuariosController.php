@@ -15,15 +15,7 @@ class UsuariosController
         $this->modelo->agregarUsuario($usuario, $contraseña,$email, $rol);
     }
 
-    public function actualizarUsuario($id_usuario, $usuario, $contraseña, $rol)
-    {
-        $this->modelo->actualizarUsuario($id_usuario, $usuario, $contraseña, $rol);
-    }
 
-    public function eliminarUsuario($id_usuario)
-    {
-        $this->modelo->eliminarUsuario($id_usuario);
-    }
 
     public function obtenerUsuarioPorEmail($email)
     {

@@ -56,36 +56,4 @@ class Usuario
         }
     }
 
-    //Funcion para actualizar un usuario atraves de los parametros
-    public function actualizarUsuario($id_Usuario, $usuario, $passw, $rol)
-    {
-        //Consulta para actualizar un usuario
-        $query = "UPDATE Usuarios SET usuario = ? , passw = ?, rol= ? WHERE id_usuario = ?";
-        $stmt = $this->conexion->conexion->prepare($query);
-        $stmt->bind_param("sssi", $usuario, $passw, $rol, $id_Usuario);
-        //Si la consulta se ejecuta correctamente, se muestra un mensaje de exito sino, se muestra un mensaje de error
-        if ($stmt->execute()) {
-            echo "Usuario actualizado con éxito.";
-        } else {
-            echo "Error al actualizar Usuario: " . $stmt->error;
-        }
-
-        $stmt->close();
-    }
-
-    //Funcion para eliminar un usuario atraves del id del usuario
-    public function eliminarUsuario($id_Usuario)
-    {
-        $query = "DELETE FROM usuarios WHERE id_usuario = ?";
-        $stmt = $this->conexion->conexion->prepare($query);
-        $stmt->bind_param("i", $id_Usuario);
-        //Si la consulta se ejecuta correctamente, se muestra un mensaje de exito sino, se muestra un mensaje de error
-        if ($stmt->execute()) {
-            echo "Usuario eliminado con éxito.";
-        } else {
-            echo "Error al eliminar Usuario: " . $stmt->error;
-        }
-
-        $stmt->close();
-    }
 }
