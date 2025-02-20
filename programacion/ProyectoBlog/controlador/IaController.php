@@ -1,5 +1,5 @@
 <?php
-require_once 'modelo/class_ia.php';
+require_once '../modelo/class_ia.php';
 
 class RecetaAIController {
     private $recetaAI;
