@@ -14,6 +14,7 @@ class Cliente {
         $stmt->bind_param("ssss", $nombre, $apellidos, $correo, $Edad);
     
         if ($stmt->execute()) {
+
             echo "Cliente agregado con éxito.";
         } else {
             echo "Error al agregar cliente: " . $stmt->error;

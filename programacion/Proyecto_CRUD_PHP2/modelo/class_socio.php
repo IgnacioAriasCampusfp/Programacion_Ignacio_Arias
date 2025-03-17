@@ -12,7 +12,7 @@ class Socio {
         $query = "INSERT INTO socios (nombre, apellido, email, telefono, fecha_nacimiento) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->conexion->conexion->prepare($query);
         $stmt->bind_param("sssss", $nombre, $apellido, $email, $telefono, $fecha_nacimiento);
-
+        
         if ($stmt->execute()) {
             echo "Socio agregado con éxito.";
         } else {
