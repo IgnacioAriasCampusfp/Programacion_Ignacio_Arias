@@ -1,7 +1,11 @@
-package Ej40;
 
 public class Producto {
-     String nombre;
+     @Override
+	public String toString() {
+		return "Producto [nombre=" + nombre + ", precio=" + precio + ", stock=" + stock + "]";
+	}
+
+	String nombre;
      double precio;
      int stock;
 

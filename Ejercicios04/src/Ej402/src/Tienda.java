@@ -1,4 +1,3 @@
-package Ej40;
 import java.util.ArrayList;
 import java.util.Scanner;
 

@@ -1,4 +1,3 @@
-package Ej40;
 
 public class Main {
 
