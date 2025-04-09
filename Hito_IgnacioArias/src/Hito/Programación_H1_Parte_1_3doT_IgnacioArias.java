@@ -65,7 +65,7 @@ public void menu() {
 		
 		
 	}
-	public void agregarPerro() {
+public void agregarPerro() {
 		
 		try {
 			//Pedimos al ususario todos los datos del perro menos el numero de chip
@@ -102,7 +102,7 @@ public void menu() {
 		
 		
 	}
-	public void agregarGato() {
+public void agregarGato() {
 		try {
 			//Pedimos al ususario todos los datos del gato menos el numero de chip
 
@@ -139,7 +139,7 @@ public void menu() {
 		
 		
 	}
-	public int cantAnimales() {
+public int cantAnimales() {
 		//Metodo que hacemos para comprobar cuantos animales hay en el array para que no de error a la hora de introducir nuevos animales
 		int cant  = 0;
 		for(Animal animal : animales) {
@@ -151,7 +151,7 @@ public void menu() {
 		return cant;
 		
 	}
-	public void mostrarAnimales(int num) {
+public void mostrarAnimales(int num) {
 		//Metodo que buscamos un animal que se ha pedido anteriomente y si existe se lo mostramos y si no le decimos que no existe
 		for (Animal animal : animales) {
 		    if (animal.num_chip == num) {
