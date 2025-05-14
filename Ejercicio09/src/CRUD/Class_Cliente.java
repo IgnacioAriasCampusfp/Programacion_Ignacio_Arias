@@ -45,7 +45,9 @@ public class Class_Cliente {
             stmt.setString(3, telefono);
             stmt.setInt(4, id);
             int filas = stmt.executeUpdate();
-            if (filas > 0) System.out.println("Cliente modificado.");
+            if (filas > 0) { 
+            	System.out.println("Cliente modificado.");
+            	}
             else System.out.println("Cliente no encontrado.");
         } catch (SQLException e) {
             System.err.println("Error al modificar cliente: " + e.getMessage());
