@@ -4,21 +4,13 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-// Clase plantilla de cliente API REST
 public class ClienteApiRest {
-    private static final Gson gson = new Gson();
+    private static final Gson gson = new GsonBuilder().setPrettyPrinting().create(); 
+
     private static final String API_KEY = "reqres-free-v1";
 
-    /**
-     * Método genérico para hacer peticiones POST enviando un objeto Java como JSON.
-     * @param apiUrl  URL completa de la API.
-     * @param objetoEnviar  Objeto Java que quieres enviar.
-     * @param claseRespuesta  Clase Java que representa la respuesta.
-     * @param token  Token opcional (puede ser null).
-     * @param <T> Tipo del objeto que envías.
-     * @param <R> Tipo de la clase que representa la respuesta.
-     */
     public static <T, R> void hacerPost(String apiUrl, T objetoEnviar, Class<R> claseRespuesta, String token) {
         try {
             URL url = new URL(apiUrl);
@@ -26,14 +18,21 @@ public class ClienteApiRest {
             conexion.setRequestMethod("POST");
             conexion.setRequestProperty("Content-Type", "application/json; utf-8");
             conexion.setRequestProperty("Accept", "application/json");
-            conexion.setRequestProperty("x-api-key", API_KEY); 
+            conexion.setRequestProperty("x-api-key", API_KEY);
 
             if (token != null) {
                 conexion.setRequestProperty("Authorization", "Bearer " + token);
             }
             conexion.setDoOutput(true);
-
+            
+           if(objetoEnviar == null) {
+        	   System.out.print("Datazo");
+           }
+            
             String jsonInputString = gson.toJson(objetoEnviar);
+            
+
+            
             try (OutputStreamWriter writer = new OutputStreamWriter(conexion.getOutputStream())) {
                 writer.write(jsonInputString);
             }
@@ -45,19 +44,15 @@ public class ClienteApiRest {
             e.printStackTrace();
         }
     }
+    
 
-    /**
-     * Método genérico para hacer peticiones GET.
-     * @param apiUrl  URL completa de la API.
-     * @param token  Token opcional (puede ser null).
-     */
     public static void hacerGet(String apiUrl, String token) {
         try {
             URL url = new URL(apiUrl);
             HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
             conexion.setRequestMethod("GET");
             conexion.setRequestProperty("Accept", "application/json");
-            conexion.setRequestProperty("x-api-key", API_KEY); // API Key añadida
+            conexion.setRequestProperty("x-api-key", API_KEY);
 
             if (token != null) {
                 conexion.setRequestProperty("Authorization", "Bearer " + token);
@@ -71,12 +66,6 @@ public class ClienteApiRest {
         }
     }
 
-    /**
-     * Método para manejar la respuesta de la API, con gestión de errores.
-     * @param conexion  Objeto HttpURLConnection abierto.
-     * @param claseRespuesta  Clase esperada en la respuesta (puede ser null para GET sin deserialización).
-     * @param <R> Clase de respuesta.
-     */
     private static <R> void manejarRespuesta(HttpURLConnection conexion, Class<R> claseRespuesta) {
         try {
             int statusCode = conexion.getResponseCode();
@@ -103,9 +92,6 @@ public class ClienteApiRest {
         }
     }
 
-    /**
-     * Método para mostrar error personalizado según el código.
-     */
     private static void mostrarError(HttpURLConnection conexion, int statusCode) {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(conexion.getErrorStream()));
