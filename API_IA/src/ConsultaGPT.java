@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+
 public class ConsultaGPT {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -30,5 +31,8 @@ public class ConsultaGPT {
 
         System.out.println("Programa finalizado.");
         scanner.close();
+        
     }
+    
+    
 }
