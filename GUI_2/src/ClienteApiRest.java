@@ -8,7 +8,7 @@ import com.google.gson.GsonBuilder;
 
 public class ClienteApiRest {
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    static String apiKey = "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";
+    static String apiKey = "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";
 
 
     public static <T, R> String hacerPost(String apiUrl, T objetoEnviar, Class<R> claseRespuesta) {
